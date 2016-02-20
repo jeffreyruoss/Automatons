@@ -17,7 +17,7 @@ var loadState = {
         // Menu
         game.load.image('Panel', 'assets/img/menu/panel.png');
         game.load.image('Avatar Frame', 'assets/img/menu/avatar-frame.png');
-        game.load.image('Behavior Frame', 'assets/img/menu/behavior-frame.png');
+        game.load.spritesheet('Behavior Frame', 'assets/img/menu/behavior-frame.png', 308, 55, 2);
         game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
 
 
