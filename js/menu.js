@@ -2,51 +2,85 @@ var menuState = {
 
     create: function() {
          
-        // Panels
+        /**
+         * Panels
+         */
         
         game.add.sprite(30, 32, 'Panel');
         game.add.sprite(430, 32, 'Panel');
         game.add.sprite(830, 32, 'Panel');
         
         
-        // Choose your characters text
+        /**
+         * Choose your characters text
+         */
         
-        game.chooseYourFirstCharacterText = game.add.text(200, 51, 'CHOOSE YOUR 1ST CHARACTER', {font: '18px Courier', fill: '#fff'});
-        game.chooseYourFirstCharacterText.anchor.x = 0.5;
-        game.chooseYourSecondCharacterText = game.add.text(600, 51, 'CHOOSE YOUR 2ND CHARACTER', {font: '18px Courier', fill: '#fff'});
-        game.chooseYourSecondCharacterText.anchor.x = 0.5;
-        game.chooseYourThirdCharacterText = game.add.text(1000, 51, 'CHOOSE YOUR 3RD CHARACTER', {font: '18px Courier', fill: '#fff'});
-        game.chooseYourThirdCharacterText.anchor.x = 0.5;
+        var chooseYourCharacterTextStyles = {font: '18px Courier', fill: '#fff'},
+            choseYourCharacterTextY = 47;
+        game.add.text(200, choseYourCharacterTextY, 'CHOOSE YOUR 1ST CHARACTER', chooseYourCharacterTextStyles)
+            .anchor.x = 0.5;
+        game.add.text(600, choseYourCharacterTextY, 'CHOOSE YOUR 2ND CHARACTER', chooseYourCharacterTextStyles)
+            .anchor.x = 0.5;
+        game.add.text(1000, choseYourCharacterTextY, 'CHOOSE YOUR 3RD CHARACTER', chooseYourCharacterTextStyles)
+            .anchor.x = 0.5;
 
         
-        // Character avatars choice
+        /**
+         * Character avatars choice
+         */
         
         var avatarsGroup = game.add.group();
         
         var avatarWidth = 76,
-            avatarsY = 75;
-            avatarsCurrentX = 46;
-            avatarsMarginRight = 1;
+            avatarHeight = 73,
+            avatarsY = 69,
+            avatarsCurrentX = 46,
+            avatarsMarginRight = 1,
+            currentAvatar = '',
+            currentCharacterTypeLabel = '';
         
         for (var i = 1; i <= 12; i++) {
-            avatarsGroup.create(avatarsCurrentX, avatarsY, 'Avatar Frame');
+            // lay out the frames
+            currentAvatar = avatarsGroup.create(avatarsCurrentX, avatarsY, 'Avatar Frame');
             avatarsCurrentX += avatarWidth + avatarsMarginRight;
             if (i === 4 || i === 8) {
                 avatarsCurrentX += 94;
             }
+            // Add character type labels
+            var characterTypeLabelX = currentAvatar.x + avatarWidth / 2,
+                characterTypeLabelY = currentAvatar.y + avatarHeight,
+                characterTypeLabelFontStyles = {font: '16px Courier', fill: '#fff'};
+            if (i === 1 || i === 5 || i === 9) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'KIGHT', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+            } else if (i === 2 || i === 6 | i === 10) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'WIZARD', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+            } else if (i === 3 || i === 7 | i === 11) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+            } else if (i === 4 || i === 8 | i === 12) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+            }
         }
         
         
-        // Choose behaviors text
-        game.chooseBehaviorsText = game.add.text(200, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'});
-        game.chooseBehaviorsText.anchor.x = 0.5;
-        game.chooseBehaviorsText = game.add.text(600, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'});
-        game.chooseBehaviorsText.anchor.x = 0.5;
-        game.chooseBehaviorsText = game.add.text(1000, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'});
-        game.chooseBehaviorsText.anchor.x = 0.5;
+        /**
+         * Choose your characters text
+         */
+        
+        game.add.text(200, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'})
+            .anchor.x = 0.5;
+        game.add.text(600, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'})
+            .anchor.x = 0.5;
+        game.add.text(1000, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'})
+            .anchor.x = 0.5;
         
         
-        // Behavior choice
+        /**
+         * Behavior choice
+         */
         
         game.behaviorSlotsGroup = game.add.group();
         
@@ -54,12 +88,12 @@ var menuState = {
             behaviorSlotHeight = 55,
             behaviorSlotsCurrentX = 46,
             behaviorSlotsCurrentY = 190,
-            behaviorSlotsMarginBottom = 2;
+            behaviorSlotsMarginBottom = 2,
+            currentBehaviorSlot = '';
         
         for (var i = 1; i <= 15; i++) {
-            // game.behaviorSlotsGroup.create(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame');
-            var thisBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', onClickAction, this, 1, 0, 0);
-            game.behaviorSlotsGroup.add(thisBehaviorSlot);
+            var currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', onClickAction, this, 1, 0, 0);
+            game.behaviorSlotsGroup.add(currentBehaviorSlot);
             behaviorSlotsCurrentY += behaviorSlotHeight + behaviorSlotsMarginBottom;
             if (i === 5 || i === 10) {
                 behaviorSlotsCurrentX += behaviorSlotWidth + 92;
@@ -68,7 +102,9 @@ var menuState = {
         }
         
         
-        // Behavior slots functionality
+        /**
+         * Behavior slots functionality
+         */
         
         game.behaviorSlotsGroup.forEach( function(behaviorSlot) { 
             behaviorSlot.events.onInputDown.add(behaviorSlotOnClick, this);
@@ -87,8 +123,8 @@ var menuState = {
 
         
         
-        var startButton = game.add.button(game.world.centerX, 525, 'Start Button', startBattle, this, 1, 0, 0);
-        startButton.anchor.x = 0.5;
+        game.add.button(game.world.centerX, 525, 'Start Button', startBattle, this, 1, 0, 0)
+            .anchor.x = 0.5;
         
         function startBattle() {
             game.state.start('battle');
