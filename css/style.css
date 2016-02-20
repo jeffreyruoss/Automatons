@@ -13,3 +13,8 @@ body{
     margin-right: auto;
     display: block;
 }
+
+canvas {
+    margin-left: auto;
+    margin-right: auto;
+}
