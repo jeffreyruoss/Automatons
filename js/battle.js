@@ -2,9 +2,6 @@ var battleState = {
 
     create: function() {
 
-        game.add.plugin(Phaser.Plugin.Debug);
-
-
         var battleStateName = game.add.text(game.world.centerX, 150, 'Battle State', {font: '30px Courier', fill: '#fff'});
         battleStateName.anchor.x = 0.5;
         
@@ -24,8 +21,6 @@ var battleState = {
             game.state.start('results');
         }
 
-
-        game.add.plugin(Phaser.Plugin.Inspector);
 
     },
     
