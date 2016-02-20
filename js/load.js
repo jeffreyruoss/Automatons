@@ -12,7 +12,13 @@ var loadState = {
 
         //Load your images, spritesheets, bitmaps...
         game.load.image('Button', 'assets/img/button.png');
-
+        
+        
+        // Menu
+        game.load.image('Panel', 'assets/img/menu/panel.png');
+        game.load.image('Avatar Frame', 'assets/img/menu/avatar-frame.png');
+        game.load.image('Behavior Frame', 'assets/img/menu/behavior-frame.png');
+        game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
 
 
         //Load your sounds, efx, music...

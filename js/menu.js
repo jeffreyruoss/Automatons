@@ -3,25 +3,22 @@ var menuState = {
     create: function() {
 
         game.add.plugin(Phaser.Plugin.Debug);
-
-
-        var menuStateName = game.add.text(game.world.centerX, 150, 'Menu State', {font: '30px Courier', fill: '#fff'});
-        menuStateName.anchor.x = 0.5;
         
-        var buttonX = game.world.centerX,
-            buttonY = game.world.height - game.world.height * 0.25,
-            button = game.add.button(buttonX, buttonY, 'Button'),
-            buttonText = game.add.text(buttonX, buttonY, 'next', {font: '30px Courier', fill: '#000'});
-        button.anchor.x = 0.5;
-        button.anchor.y = 1;
-        buttonText.anchor.x = 0.5;
-        buttonText.anchor.y = 1;
         
-        button.events.onInputDown.add(onDown, this);
+         
+        game.add.sprite(30, 32, 'Panel');
+        game.add.sprite(430, 32, 'Panel');
+        game.add.sprite(830, 32, 'Panel');
         
-        function onDown(sprite, pointer) {
+        
+        var startButton = game.add.button(game.world.centerX, 525, 'Start Button', startBattle, this, 1, 0, 0);
+        startButton.anchor.x = 0.5;
+        
+        function startBattle() {
             game.state.start('battle');
         }
+        
+        
 
 
         game.add.plugin(Phaser.Plugin.Inspector);
