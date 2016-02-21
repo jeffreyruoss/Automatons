@@ -7,18 +7,15 @@ var menuState = {
         game.selectedCharacterData = {
             'characterOne': {
                 'type': '',
-                'behaviors': {
-                }
+                'behaviors': []
             },
             'characterTwo': {
                 'type': '',
-                'behaviors': {
-                }
+                'behaviors': []
             },
             'characterThree': {
                 'type': '',
-                'behaviors': {
-                }
+                'behaviors': []
             },
         };
         
@@ -160,6 +157,7 @@ var menuState = {
          */
         
         game.behaviorSlotsGroup = game.add.group();
+        game.activeBehaviorSlot = '';
         
         var behaviorSlotWidth = 308,
             behaviorSlotHeight = 55,
@@ -204,6 +202,7 @@ var menuState = {
         }, this);
         
         function behaviorSlotOnClick(sprite, pointer) {
+            game.activeBehaviorSlot = sprite;
             behaviorPopup.alpha = 1;
             behaviorPopupClose.alpha = 1;
             // disable all avatar and behavior slot inputs since popup is opening
@@ -217,8 +216,9 @@ var menuState = {
                     behaviorSlot.input.enabled = false;
                 }
             });
-            listBehaviors(game.selectedCharacterData[sprite.panel]['type']);
+            game.world.bringToTop(behaviorPopup);
             game.world.bringToTop(behaviorPopupClose);
+            listBehaviors(sprite.panel, game.selectedCharacterData[sprite.panel]['type']);
         }
         
         behaviorPopupClose.events.onInputDown.add(behaviorPopupCloseOnClick, this);
@@ -245,7 +245,7 @@ var menuState = {
             currentBehaviorListItem = '',
             currentBehaviorsListY = 70;
 
-        function listBehaviors(characterType) {
+        function listBehaviors(panel, characterType) {
             currentBehaviorsListGroup = game.add.group();
             if (characterType === '') {
                 currentBehaviorsListItem = game.add.text(game.world.centerX, 250, 'Please select a character first.', {font: '24px Courier', fill: '#000'});
@@ -257,9 +257,13 @@ var menuState = {
                         object[characterType].forEach(function(object) {
                             currentBehaviorListItemButton = game.add.button(88, currentBehaviorsListY, 'Behaviors List Item Button', null, this, 1, 0, 0);
                             currentBehaviorListItemButton.events.onInputDown.add(behaviorListItemOnClick, this);
+                            currentBehaviorListItemButton.panel = panel;
                             currentBehaviorListItemButton.behaviorId = object['behavior']['id'];
+                            currentBehaviorListItemButton.behaviorText = object['behavior']['menuText'];
+                            game.world.bringToTop(currentBehaviorListItemButton);
                             currentBehaviorsListGroup.add(currentBehaviorListItemButton);
                             currentBehaviorsListItem = game.add.text(93, currentBehaviorsListY + 5, object['behavior']['menuText'], {font: '18px Courier', fill: '#000'});
+                            game.world.bringToTop(currentBehaviorsListItem);
                             currentBehaviorsListGroup.add(currentBehaviorsListItem);
                             currentBehaviorsListY += 30;                        
                         });
@@ -275,8 +279,9 @@ var menuState = {
 
         // When a behavior is selected from the popup list
         function behaviorListItemOnClick(sprite, pointer) {
-            console.log(sprite.behaviorId);
-
+            game.selectedCharacterData[sprite.panel]['behaviors'].push(sprite.behaviorId);
+            game.add.text(game.activeBehaviorSlot.x + 12, game.activeBehaviorSlot.y + 11, sprite.behaviorText, {font: '14px Courier', fill: '#000', wordWrap: true, wordWrapWidth: 275, fontWeight: 'bold' }).lineSpacing = -5;
+            behaviorPopupCloseOnClick();
         }
         
         
