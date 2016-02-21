@@ -46,7 +46,7 @@ var menuState = {
         game.add.text(1000, choseYourCharacterTextY, 'CHOOSE YOUR 3RD CHARACTER', chooseYourCharacterTextStyles)
             .anchor.x = 0.5;
 
-        
+
         /**
          * Character types avatars
          */
@@ -218,6 +218,7 @@ var menuState = {
                 }
             });
             listBehaviors(game.selectedCharacterData[sprite.panel]['type']);
+            game.world.bringToTop(behaviorPopupClose);
         }
         
         behaviorPopupClose.events.onInputDown.add(behaviorPopupCloseOnClick, this);
@@ -240,6 +241,7 @@ var menuState = {
         }
 
         var currentBehaviorsListGroup = '',
+            currentBehaviorListItemButton = '',
             currentBehaviorListItem = '',
             currentBehaviorsListY = 70;
 
@@ -253,7 +255,11 @@ var menuState = {
                 game.behaviorsJSON.forEach(function(object) {
                     if (object[characterType]) {
                         object[characterType].forEach(function(object) {
-                            currentBehaviorsListItem = game.add.text(90, currentBehaviorsListY, object['behavior']['menuText'], {font: '18px Courier', fill: '#000'});
+                            currentBehaviorListItemButton = game.add.button(88, currentBehaviorsListY, 'Behaviors List Item Button', null, this, 1, 0, 0);
+                            currentBehaviorListItemButton.events.onInputDown.add(behaviorListItemOnClick, this);
+                            currentBehaviorListItemButton.behaviorId = object['behavior']['id'];
+                            currentBehaviorsListGroup.add(currentBehaviorListItemButton);
+                            currentBehaviorsListItem = game.add.text(93, currentBehaviorsListY + 5, object['behavior']['menuText'], {font: '18px Courier', fill: '#000'});
                             currentBehaviorsListGroup.add(currentBehaviorsListItem);
                             currentBehaviorsListY += 30;                        
                         });
@@ -265,6 +271,12 @@ var menuState = {
         function unListBehaviors() {
             currentBehaviorsListGroup.destroy();
             currentBehaviorsListY = 70;
+        }
+
+        // When a behavior is selected from the popup list
+        function behaviorListItemOnClick(sprite, pointer) {
+            console.log(sprite.behaviorId);
+
         }
         
         
