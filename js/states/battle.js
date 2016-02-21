@@ -4,6 +4,27 @@ var battleState = {
 
     create: function() {
 
+        // temporary data so I can skip the menu state in development
+
+        game.selectedCharacterData = {
+            'characterOne': {
+                'type': 'Knight',
+                'behaviors': [1, 2, 3]
+            },
+            'characterTwo': {
+                'type': 'Rogue',
+                'behaviors': [1, 2, 3]
+            },
+            'characterThree': {
+                'type': 'Wizard',
+                'behaviors': [1, 2, 3]
+            },
+        };
+
+        // end temporary data
+
+
+
         game.enemyCharacterData = {
             'characterOne': {
                 'type': 'Wizard',
