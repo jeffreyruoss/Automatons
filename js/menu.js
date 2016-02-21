@@ -198,6 +198,13 @@ var menuState = {
             console.log(sprite.panel);
             behaviorPopup.alpha = 1;
             behaviorPopupClose.alpha = 1;
+            // disable all avatar and behavior slot inputs since popup is opening
+            game.avatarsGroup.forEach(function(avatar) {
+                avatar.input.enabled = false;
+            });
+            game.behaviorSlotsGroup.forEach(function(behaviorSlot) {
+                behaviorSlot.input.enabled = false;
+            });
         }
         
         behaviorPopupClose.events.onInputDown.add(behaviorPopupCloseOnClick, this);
@@ -205,6 +212,13 @@ var menuState = {
         function behaviorPopupCloseOnClick(sprite, pointer) {
             behaviorPopup.alpha = 0;
             behaviorPopupClose.alpha = 0;
+            // enable all avatar and behavior slot inputs since popup is closing
+            game.avatarsGroup.forEach(function(avatar) {
+                avatar.input.enabled = true;
+            });
+            game.behaviorSlotsGroup.forEach(function(behaviorSlot) {
+                behaviorSlot.input.enabled = true;
+            });
         }
         
         
