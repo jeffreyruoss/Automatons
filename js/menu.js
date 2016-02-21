@@ -4,7 +4,7 @@ var menuState = {
 
     create: function() {
         
-        game.characterData = {
+        game.selectedCharacterData = {
             'characterOne': {
                 'type': '',
                 'behaviors': {
@@ -58,7 +58,7 @@ var menuState = {
             avatarsCurrentX = 46,
             avatarsY = 69,
             avatarsMarginRight = 1,
-            currentPanel = 1,
+            currentPanel = 'characterOne',
             currentAvatar = '',
             currentCharacterTypeLabel = '';
         
@@ -70,10 +70,10 @@ var menuState = {
             currentAvatar.panel = currentPanel;
             // give them a panel property 1, 2 or 3
             if (i === 4) {
-                currentPanel += 1;
+                currentPanel = 'characterTwo';
                 avatarsCurrentX += 94;
             } else if (i === 8) {
-                currentPanel += 1;
+                currentPanel = 'characterThree';
                 avatarsCurrentX += 94;
             }
             // Add character type labels and set the avatars' character type properies
@@ -109,30 +109,27 @@ var menuState = {
         }, this);
         
         function avatarOnClick (sprite, pointer) {
-            console.log(sprite.characterType);
-            console.log(sprite.panel);
-
-            if (sprite.panel === 1) {
+            if (sprite.panel === 'characterOne') {
                 game.avatarsGroup.forEach(function(avatar) {
-                    if (avatar.panel === 1) {
+                    if (avatar.panel === 'characterOne') {
                         avatar.setFrames(1, 0, 0);
                     }
                 });
-                game.characterData.characterOne.type = sprite.characterType;
-            } else if (sprite.panel === 2) {
+                game.selectedCharacterData.characterOne.type = sprite.characterType;
+            } else if (sprite.panel === 'characterTwo') {
                 game.avatarsGroup.forEach(function(avatar) {
-                    if (avatar.panel === 2) {
+                    if (avatar.panel === 'characterTwo') {
                         avatar.setFrames(1, 0, 0);
                     }
                 });
-                game.characterData.characterTwo.type = sprite.characterType;
-            } else if (sprite.panel === 3) {
+                game.selectedCharacterData.characterTwo.type = sprite.characterType;
+            } else if (sprite.panel === 'characterThree') {
                 game.avatarsGroup.forEach(function(avatar) {
-                    if (avatar.panel === 3) {
+                    if (avatar.panel === 'characterThree') {
                         avatar.setFrames(1, 0, 0);
                     }
                 });
-                game.characterData.characterThree.type = sprite.characterType;
+                game.selectedCharacterData.characterThree.type = sprite.characterType;
             }
             sprite.setFrames(2, 2, 0);
         }
@@ -163,7 +160,7 @@ var menuState = {
             behaviorSlotsCurrentX = 46,
             behaviorSlotsCurrentY = 190,
             behaviorSlotsMarginBottom = 2,
-            currentPanel = 1,
+            currentPanel = 'characterOne',
             currentBehaviorSlot = '';
         
         for (var i = 1; i <= 15; i++) {
@@ -174,7 +171,11 @@ var menuState = {
             if (i === 5 || i === 10) {
                 behaviorSlotsCurrentX += behaviorSlotWidth + 92;
                 behaviorSlotsCurrentY = 191;
-                currentPanel += 1;
+            }
+            if (i === 5) {
+                currentPanel = 'characterTwo';
+            } else if (i === 10) {
+                currentPanel = 'characterThree';
             }
         }
         
@@ -189,13 +190,14 @@ var menuState = {
         
         var behaviorPopupClose = game.add.button(1075, 65, 'Close X', null, this, 1, 0, 0);
         behaviorPopupClose.alpha = 0;
+
+        game.behaviorsJSON = game.cache.getJSON('Behaviors');
         
         game.behaviorSlotsGroup.forEach(function(behaviorSlot) { 
             behaviorSlot.events.onInputDown.add(behaviorSlotOnClick, this);
         }, this);
         
         function behaviorSlotOnClick(sprite, pointer) {
-            console.log(sprite.panel);
             behaviorPopup.alpha = 1;
             behaviorPopupClose.alpha = 1;
             // disable all avatar and behavior slot inputs since popup is opening
@@ -205,6 +207,7 @@ var menuState = {
             game.behaviorSlotsGroup.forEach(function(behaviorSlot) {
                 behaviorSlot.input.enabled = false;
             });
+            listBehaviors(game.selectedCharacterData[sprite.panel]['type']);
         }
         
         behaviorPopupClose.events.onInputDown.add(behaviorPopupCloseOnClick, this);
@@ -219,6 +222,28 @@ var menuState = {
             game.behaviorSlotsGroup.forEach(function(behaviorSlot) {
                 behaviorSlot.input.enabled = true;
             });
+            unListBehaviors();
+        }
+
+        var currentBehaviorsListGroup = '',
+            currentBehaviorsListY = 70;
+
+        function listBehaviors(characterType) {
+            currentBehaviorsListGroup = game.add.group();
+            game.behaviorsJSON.forEach(function(object) {
+                if (object[characterType]) {
+                    object[characterType].forEach(function(object) {
+                        currentBehaviorsListItem = game.add.text(90, currentBehaviorsListY, object['behavior']['menuText'], {font: '18px Courier', fill: '#000'});
+                        currentBehaviorsListGroup.add(currentBehaviorsListItem);
+                        currentBehaviorsListY += 30;                        
+                    });
+                }
+            });
+        }
+
+        function unListBehaviors() {
+            currentBehaviorsListGroup.destroy();
+            currentBehaviorsListY = 70;
         }
         
         

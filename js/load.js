@@ -24,6 +24,7 @@ var loadState = {
         game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
         game.load.image('Behaviors Popup', 'assets/img/menu/behaviors-popup.png');
         game.load.spritesheet('Close X', 'assets/img/menu/close-x.png', 41, 41, 2);
+        game.load.json('Behaviors', 'json/behaviors.json');
 
 
         //Load your sounds, efx, music...
@@ -38,6 +39,6 @@ var loadState = {
 
         game.stage.setBackgroundColor('#000');
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-        game.state.start('title');
+        game.state.start('menu');
     }
 };
