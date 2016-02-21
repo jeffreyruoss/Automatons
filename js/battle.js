@@ -18,7 +18,7 @@ var battleState = {
                 'behaviors': [1, 2]
             },
         };
-        
+
 
         game.add.tileSprite(0, 0, 1200, 600, 'Battle Background');
 
@@ -94,7 +94,6 @@ var battleState = {
         game.enemyThree = game.add.sprite(736, 410, game.enemyCharacterData['characterThree']['type']);
         game.enemyThree.frame = 0;
         game.enemyThree.animations.add('Attack Left', [2, 3, 0]);
-
         game.allCharactersGroup.add(game.enemyThree);
         game.enemiesCharactersArray.push(game.enemyThree);
 
@@ -103,12 +102,40 @@ var battleState = {
          * Assign attribues to the characters
          */ 
 
-         game.allCharactersGroup.setAll('HP', 5);
+         game.allCharactersGroup.forEach(function(character) {
+            character.actionCounter = 0;
+            character.attributes = {};
+            if (character['key'] === 'Knight') {
+                character.attributes.hitpoints = 100;
+                character.attributes.speed = 50;
+                character.attributes.attack = 20;
+            } else if (character['key'] === 'Wizard') {
+                character.attributes.hitpoints = 50;
+                character.attributes.speed = 60;
+                character.attributes.attack = 30;               
+            } else if (character['key'] === 'Rogue') {
+                character.attributes.hitpoints = 80;
+                character.attributes.speed = 85;
+                character.attributes.attack = 15;               
+            } else if (character['key'] === 'Priest') {
+                character.attributes.hitpoints = 40;
+                character.attributes.speed = 65;
+                character.attributes.attack = 7;
+            }
+            character.attributes.speed += Math.floor(Math.random() * 20);
+         });
 
 
     },
     
     update: function() {
+
+        game.allCharactersGroup.forEach(function(character) {
+            character.actionCounter += character.attributes.speed;
+            if (character.actionCounter >= 20000) {
+                character.actionCounter = 0;
+            }
+        });
         
         // if (isGameOver === true) {
         //     game.state.start('results');
