@@ -22,7 +22,7 @@ var menuState = {
         
             
         /**
-         * Panels
+         * Background Panel containers
          */
         
         game.add.sprite(30, 32, 'Panel');
@@ -31,7 +31,7 @@ var menuState = {
         
         
         /**
-         * Choose your characters text
+         * Choose your characters text headings
          */
         
         var chooseYourCharacterTextStyles = {font: '18px Courier', fill: '#fff'},
@@ -61,11 +61,12 @@ var menuState = {
             currentCharacterTypeLabel = '';
         
         for (var i = 1; i <= 12; i++) {
-            // lay out the frames
+            // lay out the avatar frames
             currentAvatar = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', null, this, 1, 0, 0);
             game.avatarsGroup.add(currentAvatar);
             avatarsCurrentX += avatarWidth + avatarsMarginRight;
             currentAvatar.panel = currentPanel;
+            // give them a panel property 1, 2 or 3
             if (i === 4) {
                 currentPanel += 1;
                 avatarsCurrentX += 94;
@@ -73,7 +74,7 @@ var menuState = {
                 currentPanel += 1;
                 avatarsCurrentX += 94;
             }
-            // Add character type labels
+            // Add character type labels and set the avatars' character type properies
             var characterTypeLabelX = currentAvatar.x + avatarWidth / 2,
                 characterTypeLabelY = currentAvatar.y + avatarHeight,
                 characterTypeLabelFontStyles = {font: '16px Courier', fill: '#fff'};
@@ -136,7 +137,7 @@ var menuState = {
         
         
         /**
-         * Choose behaviors text
+         * Choose behaviors text headings
          */
          
         var chooseYourCharactersTextFontStyles = {font: '18px Courier', fill: '#fff'};
