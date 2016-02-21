@@ -1,7 +1,26 @@
 var menuState = {
 
     create: function() {
-         
+        
+        game.characterData = {
+            'characterOne': {
+                'type': '',
+                'behaviors': {
+                }
+            },
+            'characterTwo': {
+                'type': '',
+                'behaviors': {
+                }
+            },
+            'characterThree': {
+                'type': '',
+                'behaviors': {
+                }
+            },
+        };
+        
+            
         /**
          * Panels
          */
@@ -17,6 +36,7 @@ var menuState = {
         
         var chooseYourCharacterTextStyles = {font: '18px Courier', fill: '#fff'},
             choseYourCharacterTextY = 47;
+            
         game.add.text(200, choseYourCharacterTextY, 'CHOOSE YOUR 1ST CHARACTER', chooseYourCharacterTextStyles)
             .anchor.x = 0.5;
         game.add.text(600, choseYourCharacterTextY, 'CHOOSE YOUR 2ND CHARACTER', chooseYourCharacterTextStyles)
@@ -26,26 +46,33 @@ var menuState = {
 
         
         /**
-         * Character avatars choice
+         * Character types avatars
          */
         
-        var avatarsGroup = game.add.group();
+        game.avatarsGroup = game.add.group();
         
         var avatarWidth = 76,
             avatarHeight = 73,
-            avatarsY = 69,
             avatarsCurrentX = 46,
+            avatarsY = 69,
             avatarsMarginRight = 1,
+            currentPanel = 1,
             currentAvatar = '',
             currentCharacterTypeLabel = '';
         
         for (var i = 1; i <= 12; i++) {
             // lay out the frames
-            currentAvatar = avatarsGroup.create(avatarsCurrentX, avatarsY, 'Avatar Frame');
+            currentAvatar = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', null, this, 1, 0, 0);
+            game.avatarsGroup.add(currentAvatar);
             avatarsCurrentX += avatarWidth + avatarsMarginRight;
-            if (i === 4 || i === 8) {
+            if (i === 4) {
+                currentPanel = 2;
+                avatarsCurrentX += 94;
+            } else if (i === 8) {
+                currentPanel = 3;
                 avatarsCurrentX += 94;
             }
+            currentAvatar.panel = currentPanel;
             // Add character type labels
             var characterTypeLabelX = currentAvatar.x + avatarWidth / 2,
                 characterTypeLabelY = currentAvatar.y + avatarHeight,
@@ -53,33 +80,53 @@ var menuState = {
             if (i === 1 || i === 5 || i === 9) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'KIGHT', characterTypeLabelFontStyles);
                 currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatar.characterType = 'Knight';
             } else if (i === 2 || i === 6 | i === 10) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'WIZARD', characterTypeLabelFontStyles);
                 currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatar.characterType = 'Wizard';
             } else if (i === 3 || i === 7 | i === 11) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
                 currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatar.characterType = 'Rogue';
             } else if (i === 4 || i === 8 | i === 12) {
-                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'PRIEST', characterTypeLabelFontStyles);
                 currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatar.characterType = 'Priest';
             }
         }
         
         
         /**
-         * Choose your characters text
+         * Character types avatars functionality
          */
         
-        game.add.text(200, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'})
+        game.avatarsGroup.forEach( function(avatar) { 
+            avatar.events.onInputDown.add(avatarOnClick, this);
+        }, this);
+        
+        function avatarOnClick (sprite, pointer) {
+            console.log(sprite.characterType);
+            console.log(sprite.panel);
+        }
+        
+        
+        /**
+         * Choose behaviors text
+         */
+         
+        var chooseYourCharactersTextFontStyles = {font: '18px Courier', fill: '#fff'};
+        
+        game.add.text(200, 167, 'CHOOSE BEHAVIORS', chooseYourCharactersTextFontStyles)
             .anchor.x = 0.5;
-        game.add.text(600, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'})
+        game.add.text(600, 167, 'CHOOSE BEHAVIORS', chooseYourCharactersTextFontStyles)
             .anchor.x = 0.5;
-        game.add.text(1000, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'})
+        game.add.text(1000, 167, 'CHOOSE BEHAVIORS', chooseYourCharactersTextFontStyles)
             .anchor.x = 0.5;
         
         
         /**
-         * Behavior choice
+         * Behavior slots
          */
         
         game.behaviorSlotsGroup = game.add.group();
@@ -92,7 +139,7 @@ var menuState = {
             currentBehaviorSlot = '';
         
         for (var i = 1; i <= 15; i++) {
-            var currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', onClickAction, this, 1, 0, 0);
+            var currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', null, this, 1, 0, 0);
             game.behaviorSlotsGroup.add(currentBehaviorSlot);
             behaviorSlotsCurrentY += behaviorSlotHeight + behaviorSlotsMarginBottom;
             if (i === 5 || i === 10) {
@@ -114,14 +161,10 @@ var menuState = {
             console.log(sprite);
         }
         
-        function onClickAction() {
-            // do we need this?
-        }
         
-        
-        
-
-        
+        /**
+         * Start Button
+         */   
         
         game.add.button(game.world.centerX, 525, 'Start Button', startBattle, this, 1, 0, 0)
             .anchor.x = 0.5;
