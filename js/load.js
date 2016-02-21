@@ -32,6 +32,7 @@ var loadState = {
         game.load.json('Behaviors', 'json/behaviors.json');
 
         // Battle
+        game.load.image('Battle Background', 'assets/img/battle/battle-background.png')
         game.load.spritesheet('Knight', 'assets/img/battle/knight.png', 254, 132, 6);
 
 

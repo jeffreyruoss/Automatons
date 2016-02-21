@@ -21,6 +21,8 @@ var battleState = {
             game.state.start('results');
         }
 
+        game.add.tileSprite(0, 0, 1200, 600, 'Battle Background');
+
         game.charactersGroup = game.add.group();
 
         game.knight = game.add.sprite(0, 0, 'Knight');
