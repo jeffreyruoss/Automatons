@@ -21,6 +21,10 @@ var loadState = {
         game.load.image('Panel', 'assets/img/menu/panel.png');
         game.load.spritesheet('Avatar Frame', 'assets/img/menu/avatar-frame.png', 76, 73, 3);
         game.load.spritesheet('Behavior Frame', 'assets/img/menu/behavior-frame.png', 308, 55, 2);
+        game.load.image('Knight Avatar', 'assets/img/menu/knight-avatar.png');
+        game.load.image('Wizard Avatar', 'assets/img/menu/wizard-avatar.png');
+        game.load.image('Rogue Avatar', 'assets/img/menu/rogue-avatar.png');
+        game.load.image('Priest Avatar', 'assets/img/menu/priest-avatar.png');
         game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
         game.load.image('Behaviors Popup', 'assets/img/menu/behaviors-popup.png');
         game.load.spritesheet('Close X', 'assets/img/menu/close-x.png', 41, 41, 2);

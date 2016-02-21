@@ -59,16 +59,42 @@ var menuState = {
             avatarsY = 69,
             avatarsMarginRight = 1,
             currentPanel = 'characterOne',
+            currentAvatarFrame = '',
             currentAvatar = '',
+            currentAvatarKey = '',
             currentCharacterTypeLabel = '';
         
         for (var i = 1; i <= 12; i++) {
             // lay out the avatar frames
-            currentAvatar = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', null, this, 1, 0, 0);
+            currentAvatarFrame = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', null, this, 1, 0, 0);
+            game.avatarsGroup.add(currentAvatarFrame);
+            
+            currentAvatarFrame.panel = currentPanel;
+            // Add character type labels and set the avatars' character type properies
+            var characterTypeLabelX = currentAvatarFrame.x + avatarWidth / 2,
+                characterTypeLabelY = currentAvatarFrame.y + avatarHeight,
+                characterTypeLabelFontStyles = {font: '16px Courier', fill: '#fff'};
+            if (i === 1 || i === 5 || i === 9) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'KIGHT', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatarFrame.characterType = 'Knight';
+            } else if (i === 2 || i === 6 | i === 10) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'WIZARD', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatarFrame.characterType = 'Wizard';
+            } else if (i === 3 || i === 7 | i === 11) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatarFrame.characterType = 'Rogue';
+            } else if (i === 4 || i === 8 | i === 12) {
+                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'PRIEST', characterTypeLabelFontStyles);
+                currentCharacterTypeLabel.anchor.x = 0.5;
+                currentAvatarFrame.characterType = 'Priest';
+            }
+            currentAvatarKey = currentAvatarFrame.characterType + ' Avatar';
+            currentAvatar = game.add.sprite(avatarsCurrentX, avatarsY, currentAvatarKey);
             game.avatarsGroup.add(currentAvatar);
-            avatarsCurrentX += avatarWidth + avatarsMarginRight;
-            currentAvatar.panel = currentPanel;
-            // give them a panel property 1, 2 or 3
+            // give them a panel property
             if (i === 4) {
                 currentPanel = 'characterTwo';
                 avatarsCurrentX += 94;
@@ -76,27 +102,7 @@ var menuState = {
                 currentPanel = 'characterThree';
                 avatarsCurrentX += 94;
             }
-            // Add character type labels and set the avatars' character type properies
-            var characterTypeLabelX = currentAvatar.x + avatarWidth / 2,
-                characterTypeLabelY = currentAvatar.y + avatarHeight,
-                characterTypeLabelFontStyles = {font: '16px Courier', fill: '#fff'};
-            if (i === 1 || i === 5 || i === 9) {
-                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'KIGHT', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
-                currentAvatar.characterType = 'Knight';
-            } else if (i === 2 || i === 6 | i === 10) {
-                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'WIZARD', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
-                currentAvatar.characterType = 'Wizard';
-            } else if (i === 3 || i === 7 | i === 11) {
-                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
-                currentAvatar.characterType = 'Rogue';
-            } else if (i === 4 || i === 8 | i === 12) {
-                currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'PRIEST', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
-                currentAvatar.characterType = 'Priest';
-            }
+            avatarsCurrentX += avatarWidth + avatarsMarginRight;
         }
         
         
@@ -202,10 +208,14 @@ var menuState = {
             behaviorPopupClose.alpha = 1;
             // disable all avatar and behavior slot inputs since popup is opening
             game.avatarsGroup.forEach(function(avatar) {
-                avatar.input.enabled = false;
+                if (avatar.input) {
+                    avatar.input.enabled = false;
+                }
             });
             game.behaviorSlotsGroup.forEach(function(behaviorSlot) {
-                behaviorSlot.input.enabled = false;
+                if (behaviorSlot.input) {
+                    behaviorSlot.input.enabled = false;
+                }
             });
             listBehaviors(game.selectedCharacterData[sprite.panel]['type']);
         }
@@ -217,10 +227,14 @@ var menuState = {
             behaviorPopupClose.alpha = 0;
             // enable all avatar and behavior slot inputs since popup is closing
             game.avatarsGroup.forEach(function(avatar) {
-                avatar.input.enabled = true;
+                if (avatar.input) {
+                    avatar.input.enabled = true;
+                }
             });
             game.behaviorSlotsGroup.forEach(function(behaviorSlot) {
-                behaviorSlot.input.enabled = true;
+                if (behaviorSlot.input) {
+                    behaviorSlot.input.enabled = true;
+                }
             });
             unListBehaviors();
         }
