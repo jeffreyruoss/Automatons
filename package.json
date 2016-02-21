@@ -4,7 +4,8 @@
   "description": "# Resources used - Phaser-Boilerplate",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "service apache2 start & livereload . -p 8082 -d",
+    "stop":"service apache2 stop"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/jeffreyruoss/Automatons#readme",
   "devDependencies": {
-    "browser-sync": "^2.11.1",
-    "gulp": "^3.9.1"
+    "browser-sync": "2.8.2",
+    "gulp": "^3.9.1",
+    "livereload": "^0.4.1"
   }
 }

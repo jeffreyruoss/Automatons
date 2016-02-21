@@ -1,3 +1,5 @@
+/*global game*/
+
 var resultsState = {
 
     create: function() {

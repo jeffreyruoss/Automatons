@@ -1,3 +1,6 @@
+/*global Phaser*/
+/*global game*/
+
 var bootState = {
 
     create: function(){
