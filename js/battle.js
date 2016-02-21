@@ -25,13 +25,51 @@ var battleState = {
 
         game.charactersGroup = game.add.group();
 
+
+        /**
+         * Knight
+         */
+
         game.knight = game.add.sprite(0, 0, 'Knight');
-        game.knight.frame = 0;
+        game.knight.frame = 1;
         game.knight.animations.add('Attack Right', [4, 5, 1]);
         game.knight.animations.add('Attack Left', [2, 3, 0]);
         game.charactersGroup.add(game.knight);
 
         // game.knight.animations.play('Attack Right', 23, false);
+
+
+        /**
+         * Wizard
+         */
+         
+        game.wizard = game.add.sprite(200, 0, 'Wizard');
+        game.wizard.frame = 1;
+        game.wizard.animations.add('Attack Right', [4, 5, 1]);
+        game.wizard.animations.add('Attack Left', [2, 3, 0]);
+        game.charactersGroup.add(game.wizard);
+
+
+        /**
+         * Rogue
+         */
+         
+        game.rogue = game.add.sprite(400, 0, 'Rogue');
+        game.rogue.frame = 1;
+        game.rogue.animations.add('Attack Right', [4, 5, 1]);
+        game.rogue.animations.add('Attack Left', [2, 3, 0]);
+        game.charactersGroup.add(game.rogue);
+
+
+        /**
+         * Priest
+         */
+         
+        game.priest = game.add.sprite(600, 0, 'Priest');
+        game.priest.frame = 1;
+        game.priest.animations.add('Attack Right', [4, 5, 1]);
+        game.priest.animations.add('Attack Left', [2, 3, 0]);
+        game.charactersGroup.add(game.priest);
 
 
     },
