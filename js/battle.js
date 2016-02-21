@@ -18,19 +18,13 @@ var battleState = {
                 'behaviors': [1, 2]
             },
         };
-
-
-        /** 
-         * Create allies
-         * ------------------------------
-         */   
         
 
         game.add.tileSprite(0, 0, 1200, 600, 'Battle Background');
 
         game.allCharactersGroup = game.add.group();
-        game.alliesCharactersGroup = game.add.group();
-        game.enemiesCharactersGroup = game.add.group();
+        game.alliesCharactersArray = [];
+        game.enemiesCharactersArray = [];
 
 
         /**
@@ -42,7 +36,7 @@ var battleState = {
         game.characterOne.animations.add('Attack Right', [4, 5, 1]);
         game.characterOne.scale.setTo(0.8, 0.8);
         game.allCharactersGroup.add(game.characterOne);
-        game.alliesCharactersGroup.add(game.characterOne);
+        game.alliesCharactersArray.push(game.characterOne);
 
 
         /**
@@ -54,7 +48,7 @@ var battleState = {
         game.characterTwo.animations.add('Attack Right', [4, 5, 1]);
         game.characterTwo.scale.setTo(0.9, 0.9);
         game.allCharactersGroup.add(game.characterTwo);
-        game.alliesCharactersGroup.add(game.characterTwo);
+        game.alliesCharactersArray.push(game.characterTwo);
 
 
         /**
@@ -66,17 +60,7 @@ var battleState = {
         game.characterThree.animations.add('Attack Right', [4, 5, 1]);
 
         game.allCharactersGroup.add(game.characterThree);
-        game.alliesCharactersGroup.add(game.characterThree);
-
-
-        /** 
-         * Create enemies
-         * ------------------------------
-         */   
-
-        game.allCharactersGroup = game.add.group();
-        game.alliesCharactersGroup = game.add.group();
-        game.enemiesCharactersGroup = game.add.group();
+        game.alliesCharactersArray.push(game.characterThree);
 
 
         /**
@@ -88,7 +72,7 @@ var battleState = {
         game.enemyOne.animations.add('Attack Left', [2, 3, 0]);
         game.enemyOne.scale.setTo(0.8, 0.8);
         game.allCharactersGroup.add(game.enemyOne);
-        game.alliesCharactersGroup.add(game.enemyOne);
+        game.enemiesCharactersArray.push(game.enemyOne);
 
 
         /**
@@ -100,7 +84,7 @@ var battleState = {
         game.enemyTwo.animations.add('Attack Left', [2, 3, 0]);
         game.enemyTwo.scale.setTo(0.9, 0.9);
         game.allCharactersGroup.add(game.enemyTwo);
-        game.alliesCharactersGroup.add(game.enemyTwo);
+        game.enemiesCharactersArray.push(game.enemyTwo);
 
 
         /**
@@ -112,8 +96,14 @@ var battleState = {
         game.enemyThree.animations.add('Attack Left', [2, 3, 0]);
 
         game.allCharactersGroup.add(game.enemyThree);
-        game.alliesCharactersGroup.add(game.enemyThree);
+        game.enemiesCharactersArray.push(game.enemyThree);
 
+
+         /**
+         * Assign attribues to the characters
+         */ 
+
+         game.allCharactersGroup.setAll('HP', 5);
 
 
     },
