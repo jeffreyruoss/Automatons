@@ -21,9 +21,22 @@ var loadState = {
         game.load.image('Panel', 'assets/img/menu/panel.png');
         game.load.spritesheet('Avatar Frame', 'assets/img/menu/avatar-frame.png', 76, 73, 3);
         game.load.spritesheet('Behavior Frame', 'assets/img/menu/behavior-frame.png', 308, 55, 2);
-        game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
+        game.load.image('Knight Avatar', 'assets/img/menu/knight-avatar.png');
+        game.load.image('Wizard Avatar', 'assets/img/menu/wizard-avatar.png');
+        game.load.image('Rogue Avatar', 'assets/img/menu/rogue-avatar.png');
+        game.load.image('Priest Avatar', 'assets/img/menu/priest-avatar.png');
         game.load.image('Behaviors Popup', 'assets/img/menu/behaviors-popup.png');
+        game.load.spritesheet('Behaviors List Item Button', 'assets/img/menu/behavior-list-item-button.png', 1024, 28, 2);
         game.load.spritesheet('Close X', 'assets/img/menu/close-x.png', 41, 41, 2);
+        game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
+        game.load.json('Behaviors', 'json/behaviors.json');
+
+        // Battle
+        game.load.image('Battle Background', 'assets/img/battle/battle-background.png')
+        game.load.spritesheet('Knight', 'assets/img/battle/knight.png', 254, 132, 6);
+        game.load.spritesheet('Wizard', 'assets/img/battle/wizard.png', 254, 132, 6);
+        game.load.spritesheet('Rogue', 'assets/img/battle/rogue.png', 254, 132, 6);
+        game.load.spritesheet('Priest', 'assets/img/battle/priest.png', 254, 132, 6);
 
 
         //Load your sounds, efx, music...
