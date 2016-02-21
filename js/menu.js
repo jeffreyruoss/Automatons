@@ -65,14 +65,14 @@ var menuState = {
             currentAvatar = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', null, this, 1, 0, 0);
             game.avatarsGroup.add(currentAvatar);
             avatarsCurrentX += avatarWidth + avatarsMarginRight;
+            currentAvatar.panel = currentPanel;
             if (i === 4) {
-                currentPanel = 2;
+                currentPanel += 1;
                 avatarsCurrentX += 94;
             } else if (i === 8) {
-                currentPanel = 3;
+                currentPanel += 1;
                 avatarsCurrentX += 94;
             }
-            currentAvatar.panel = currentPanel;
             // Add character type labels
             var characterTypeLabelX = currentAvatar.x + avatarWidth / 2,
                 characterTypeLabelY = currentAvatar.y + avatarHeight,
@@ -108,6 +108,30 @@ var menuState = {
         function avatarOnClick (sprite, pointer) {
             console.log(sprite.characterType);
             console.log(sprite.panel);
+
+            if (sprite.panel === 1) {
+                game.avatarsGroup.forEach(function(avatar) {
+                    if (avatar.panel === 1) {
+                        avatar.setFrames(1, 0, 0);
+                    }
+                });
+                game.characterData.characterOne.type = sprite.characterType;
+            } else if (sprite.panel === 2) {
+                game.avatarsGroup.forEach(function(avatar) {
+                    if (avatar.panel === 2) {
+                        avatar.setFrames(1, 0, 0);
+                    }
+                });
+                game.characterData.characterTwo.type = sprite.characterType;
+            } else if (sprite.panel === 3) {
+                game.avatarsGroup.forEach(function(avatar) {
+                    if (avatar.panel === 3) {
+                        avatar.setFrames(1, 0, 0);
+                    }
+                });
+                game.characterData.characterThree.type = sprite.characterType;
+            }
+            sprite.setFrames(2, 2, 0);
         }
         
         
