@@ -31,6 +31,9 @@ var loadState = {
         game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
         game.load.json('Behaviors', 'json/behaviors.json');
 
+        // Battle
+        game.load.spritesheet('Knight', 'assets/img/battle/knight.png', 254, 132, 6);
+
 
         //Load your sounds, efx, music...
         //Example: game.load.audio('rockas', 'assets/snd/rockas.wav');

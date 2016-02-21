@@ -21,6 +21,16 @@ var battleState = {
             game.state.start('results');
         }
 
+        game.charactersGroup = game.add.group();
+
+        game.knight = game.add.sprite(0, 0, 'Knight');
+        game.knight.frame = 0;
+        game.knight.animations.add('Attack Right', [4, 5, 1]);
+        game.knight.animations.add('Attack Left', [2, 3, 0]);
+        game.charactersGroup.add(game.knight);
+
+        // game.knight.animations.play('Attack Right', 23, false);
+
 
     },
     
