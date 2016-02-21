@@ -1,3 +1,6 @@
+/*global Phaser*/
+/*global game*/
+
 var loadState = {
 
     preload: function() {
@@ -19,6 +22,8 @@ var loadState = {
         game.load.spritesheet('Avatar Frame', 'assets/img/menu/avatar-frame.png', 76, 73, 3);
         game.load.spritesheet('Behavior Frame', 'assets/img/menu/behavior-frame.png', 308, 55, 2);
         game.load.spritesheet('Start Button', 'assets/img/menu/start-button.png', 134, 48, 2);
+        game.load.image('Behaviors Popup', 'assets/img/menu/behaviors-popup.png');
+        game.load.spritesheet('Close X', 'assets/img/menu/close-x.png', 41, 41, 2);
 
 
         //Load your sounds, efx, music...

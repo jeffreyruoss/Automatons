@@ -1,3 +1,5 @@
+/*global game*/
+
 var menuState = {
 
     create: function() {
@@ -180,13 +182,29 @@ var menuState = {
         /**
          * Behavior slots functionality
          */
+         
+        var behaviorPopup = game.add.sprite(game.world.centerX, 38, 'Behaviors Popup');
+        behaviorPopup.anchor.x = 0.5;
+        behaviorPopup.alpha = 0;
         
-        game.behaviorSlotsGroup.forEach( function(behaviorSlot) { 
+        var behaviorPopupClose = game.add.button(1075, 65, 'Close X', null, this, 1, 0, 0);
+        behaviorPopupClose.alpha = 0;
+        
+        game.behaviorSlotsGroup.forEach(function(behaviorSlot) { 
             behaviorSlot.events.onInputDown.add(behaviorSlotOnClick, this);
         }, this);
         
-        function behaviorSlotOnClick (sprite, pointer) {
+        function behaviorSlotOnClick(sprite, pointer) {
             console.log(sprite.panel);
+            behaviorPopup.alpha = 1;
+            behaviorPopupClose.alpha = 1;
+        }
+        
+        behaviorPopupClose.events.onInputDown.add(behaviorPopupCloseOnClick, this);
+        
+        function behaviorPopupCloseOnClick(sprite, pointer) {
+            behaviorPopup.alpha = 0;
+            behaviorPopupClose.alpha = 0;
         }
         
         
