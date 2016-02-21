@@ -226,19 +226,26 @@ var menuState = {
         }
 
         var currentBehaviorsListGroup = '',
+            currentBehaviorListItem = '',
             currentBehaviorsListY = 70;
 
         function listBehaviors(characterType) {
             currentBehaviorsListGroup = game.add.group();
-            game.behaviorsJSON.forEach(function(object) {
-                if (object[characterType]) {
-                    object[characterType].forEach(function(object) {
-                        currentBehaviorsListItem = game.add.text(90, currentBehaviorsListY, object['behavior']['menuText'], {font: '18px Courier', fill: '#000'});
-                        currentBehaviorsListGroup.add(currentBehaviorsListItem);
-                        currentBehaviorsListY += 30;                        
-                    });
-                }
-            });
+            if (characterType === '') {
+                currentBehaviorsListItem = game.add.text(game.world.centerX, 250, 'Please select a character first.', {font: '24px Courier', fill: '#000'});
+                currentBehaviorsListItem.anchor.x = 0.5;
+                currentBehaviorsListGroup.add(currentBehaviorsListItem);
+            } else {
+                game.behaviorsJSON.forEach(function(object) {
+                    if (object[characterType]) {
+                        object[characterType].forEach(function(object) {
+                            currentBehaviorsListItem = game.add.text(90, currentBehaviorsListY, object['behavior']['menuText'], {font: '18px Courier', fill: '#000'});
+                            currentBehaviorsListGroup.add(currentBehaviorsListItem);
+                            currentBehaviorsListY += 30;                        
+                        });
+                    }
+                });
+            }
         }
 
         function unListBehaviors() {
