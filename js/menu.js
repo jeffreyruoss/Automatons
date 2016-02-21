@@ -161,15 +161,18 @@ var menuState = {
             behaviorSlotsCurrentX = 46,
             behaviorSlotsCurrentY = 190,
             behaviorSlotsMarginBottom = 2,
+            currentPanel = 1,
             currentBehaviorSlot = '';
         
         for (var i = 1; i <= 15; i++) {
-            var currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', null, this, 1, 0, 0);
+            currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', null, this, 1, 0, 0);
+            currentBehaviorSlot.panel = currentPanel;
             game.behaviorSlotsGroup.add(currentBehaviorSlot);
             behaviorSlotsCurrentY += behaviorSlotHeight + behaviorSlotsMarginBottom;
             if (i === 5 || i === 10) {
                 behaviorSlotsCurrentX += behaviorSlotWidth + 92;
                 behaviorSlotsCurrentY = 191;
+                currentPanel += 1;
             }
         }
         
@@ -183,7 +186,7 @@ var menuState = {
         }, this);
         
         function behaviorSlotOnClick (sprite, pointer) {
-            console.log(sprite);
+            console.log(sprite.panel);
         }
         
         
