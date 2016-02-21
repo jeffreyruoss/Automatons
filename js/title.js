@@ -1,9 +1,11 @@
+/*global Phaser*/
+/*global game*/
+
 var titleState = {
 
     create: function() {
 
         game.add.plugin(Phaser.Plugin.Debug);
-
 
         var titleStateName = game.add.text(game.world.centerX, 150, 'Title State', {font: '30px Courier', fill: '#fff'});
         titleStateName.anchor.x = 0.5;
@@ -24,7 +26,7 @@ var titleState = {
         }
 
 
-        game.add.plugin(Phaser.Plugin.Inspector);
+        // game.add.plugin(Phaser.Plugin.Inspector);
 
     },
     
@@ -38,6 +40,3 @@ var titleState = {
 
 
 };
-
-
-

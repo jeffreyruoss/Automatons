@@ -6,7 +6,8 @@
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+        
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.5.0/lodash.min.js"></script>
         <script type="text/javascript" src="lib/phaser.min.js"></script>
         <script type="text/javascript" src="js/boot.js"></script>
         <script type="text/javascript" src="js/load.js"></script>
@@ -29,10 +30,10 @@
 
         <div id="gameContainer"></div>
         
-        <script type='text/javascript' id="__bs_script__">//<![CDATA[
-            document.write("<script async src='http://HOST:8082/browser-sync/browser-sync-client.2.11.1.js'><\/script>".replace("HOST", location.hostname));
-        //]]></script>
-
+        <script>
+          document.write('<script src="https://' + (location.host || 'localhost').split(':')[0] +
+          ':8082/livereload.js?snipver=1"></' + 'script>')
+        </script>
     </body>
 
 </html>

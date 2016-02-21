@@ -1,3 +1,5 @@
+/*global game*/
+
 var battleState = {
 
     create: function() {

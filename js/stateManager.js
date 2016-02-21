@@ -1,3 +1,12 @@
+/*global _*/
+/*global Phaser*/
+/*global bootState*/
+/*global loadState*/
+/*global titleState*/
+/*global menuState*/
+/*global battleState*/
+/*global resultsState*/
+
 // var w = window.innerWidth * window.devicePixelRatio,
 //     h = window.innerHeight * window.devicePixelRatio;
     
@@ -5,13 +14,29 @@
 var w = 1200,
     h = 600;
 
+console.count('test');
+console.count('test');
+console.count('test');
+console.count('test');
+console.count('test');
+console.count('test');
+
+
+
 var game = new Phaser.Game(w, h, Phaser.AUTO, 'gameContainer');
 
-game.state.add('boot', bootState);
-game.state.add('load', loadState);
-game.state.add('title', titleState);
-game.state.add('menu', menuState);
-game.state.add('battle', battleState);
-game.state.add('results', resultsState);
+_.each({
+    'boot':bootState,
+    'load':loadState,
+    'title':titleState,
+    'menu':menuState,
+    'battle':battleState,
+    'results':resultsState
+}, function(state, stateName){
+    
+    // this == game.state
+    game.state.add(stateName, state);
+    
+});
 
 game.state.start('boot');

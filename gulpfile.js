@@ -4,6 +4,11 @@ var gulp = require('gulp'),
 gulp.task('browser-sync', function() {
 
     browserSync({
+        
+        https: true,
+        
+        host: '0.0.0.0',
+        
         // You can use wildcards in here.
         files: 'index.html, styles.css, js/*',
         
