@@ -10,7 +10,27 @@
 		}},
 		{"behavior": {
 			"id": 3,
-			"menuText": "If an ally has less then 30% Hit Points, protect that allie"
+			"menuText": "COMING SOON - If an ally has less then 30% Hit Points, protect that allie"
+		}},
+		{"behavior": {
+			"id": 4,
+			"menuText": "COMING SOON - If an ally has less then 50% Hit Points, protect that allie"
+		}},
+		{"behavior": {
+			"id": 5,
+			"menuText": "COMING SOON - If a Priest allie exists, protect that allie"
+		}},
+		{"behavior": {
+			"id": 6,
+			"menuText": "COMING SOON - If a Wizard allie exists, protect that allie"
+		}},
+		{"behavior": {
+			"id": 7,
+			"menuText": "COMING SOON - If a Rogue allie exists, protect that allie"
+		}},
+		{"behavior": {
+			"id": 8,
+			"menuText": "COMING SOON - If self has not done Battle Cry, do Battle Cry"
 		}}
 	]},
 	{"Wizard": [
@@ -29,6 +49,22 @@
 		{"behavior": {
 			"id": 4,
 			"menuText": "Cast Fire All"
+		}},
+		{"behavior": {
+			"id": 5,
+			"menuText": "Cast Fire an the enemy with the highest Hit Points"
+		}},
+		{"behavior": {
+			"id": 6,
+			"menuText": "COMING SOON - If a Knight allie exists cast Flame Sword an that allie"
+		}},
+		{"behavior": {
+			"id": 7,
+			"menuText": "COMING SOON - If a Rogue allie exists cast Flame Sword an that allie"
+		}},
+		{"behavior": {
+			"id": 8,
+			"menuText": "COMING SOON - Charge Up for Fire Storm"
 		}}
 	]},
 	{"Rogue": [
@@ -38,11 +74,31 @@
 		}},
 		{"behavior": {
 			"id": 2,
-			"menuText": "If there is Priest, attack that Priest"
+			"menuText": "If a Priest enemy exists, attack that enemy"
 		}},
 		{"behavior": {
 			"id": 3,
-			"menuText": "If there is Priest, attack that Priest"
+			"menuText": "Attack the enemy with the highest Hit Points"
+		}},
+		{"behavior": {
+			"id": 4,
+			"menuText": "COMING SOON - If a Wizard enemy exists, attack that enemy"
+		}},
+		{"behavior": {
+			"id": 5,
+			"menuText": "COMING SOON - If a Rogue enemy exists, attack that enemy"
+		}},
+		{"behavior": {
+			"id": 6,
+			"menuText": "COMING SOON - If a Knight enemy exists, attack that enemy"
+		}},
+		{"behavior": {
+			"id": 7,
+			"menuText": "COMING SOON - If not Hasted already, cast Haste on self"
+		}},
+		{"behavior": {
+			"id": 8,
+			"menuText": "COMING SOON - Berserk! Attack a random character but with a bonus to attack"
 		}}
 	]},
 	{"Priest": [
@@ -65,6 +121,18 @@
 		{"behavior": {
 			"id": 5,
 			"menuText": "Cast Heal All"
+		}},
+		{"behavior": {
+			"id": 6,
+			"menuText": "COMING SOON - If self is below 50% cast Heal on self"
+		}},
+		{"behavior": {
+			"id": 7,
+			"menuText": "COMING SOON - If self is below 30% cast Heal on self"
+		}},
+		{"behavior": {
+			"id": 8,
+			"menuText": "COMING SOON - If self has not cast Holy Armor, cast Holy Armor on self (increase max hitpoints)"
 		}}
 	]}
 ]
