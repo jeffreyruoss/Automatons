@@ -93,7 +93,6 @@ game.Behaviors = {
         '1': {
         	// If there are 3 enemies cast Fire All
         	action: function(thisCharacter) {
-        		console.log('If there are 3 enemies cast Fire All');
         		var charactersArray = '',
         			animationKey = '';
         		if (thisCharacter.team === 'allie') {
@@ -116,20 +115,64 @@ game.Behaviors = {
 						game.effects.fire(target);
 						thisCharacter.actionInProgress = false;
 					});
-					console.log('there were 3 enemies so I cast Fire All');
-        		} else {
-        			console.log('there were not 3 enemies so I did not cast Fire All');
         		}
         	}
         },
         '2': {
-        	action: function() {
-        		console.log('wizard action 2');
+        	// If there are 2 or more enemies cast Fire All
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var aliveCount = '';
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+        				aliveCount++;
+        			}
+        		});
+        		if (aliveCount >= 2) {
+					charactersArray.forEach(function(target) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.3;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.fire(target);
+						thisCharacter.actionInProgress = false;
+					});
+        		}
         	}
         },
         '3': {
-        	action: function() {
-        		console.log('wizard action 3');
+        	// Cast Fire an the enemy with the lowest Hit Points
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
+        		});
+        		var smallest = Math.min.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === smallest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.fire(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         },
         '4': {
@@ -155,16 +198,63 @@ game.Behaviors = {
         	}
         },
         '5': {
-        	// If an ally has less then 30% Hit Points, protect that allie
+        	// Cast Fire an the enemy with the highest Hit Points
         	action: function(thisCharacter) {
-        		
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
+        		});
+        		var largest = Math.max.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === largest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.fire(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         }
     },
     'Rogue': {
         '1': {
-        	action: function() {
-        		// console.log('test3');
+        	// "Attack the enemy with the lowest HP"
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
+        		});
+        		var smallest = Math.min.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === smallest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.slash(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         },
         '2': {
@@ -190,8 +280,32 @@ game.Behaviors = {
         	}
         },
         '3': {
-        	action: function() {
-        		// console.log('testy');
+        	// Attack the enemy with the highest Hit Points
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
+        		});
+        		var largest = Math.max.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === largest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.slash(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         },
         '4': {
@@ -209,23 +323,138 @@ game.Behaviors = {
     },
     'Priest': {
         '1': {
-        	action: function() {
-        		// console.log('priest action 1');
+        	// Attack the enemy with the lowest Hit Points
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
+        		});
+        		var smallest = Math.min.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === smallest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.slash(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         },
         '2': {
-        	action: function() {
-        		// console.log('test6');
+        	// If there are 3 allies below 50% Hit Points, Heal All
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var aliveCount = '',
+        			validTargetCount = '';
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+        				aliveCount++;
+        			}
+        			if (target.attributes.hitpoints < target.attributes.hitpointsMax * 0.5) {
+        				validTargetCount++;
+        			}
+        		});
+        		if (aliveCount === 3 && validTargetCount === 3) {
+	        		charactersArray.forEach(function(target) {
+	        			if (target.alive) {
+							target.attributes.hitpoints += thisCharacter.attributes.attack;
+							if (target.attributes.hitpoints > target.attributes.hitpointsMax) {
+								target.attributes.hitpoints = target.attributes.hitpointsMax;
+							}
+							thisCharacter.animations.play(animationKey, 23, false);
+							game.effects.heal(target);
+	        			}
+	        			thisCharacter.actionInProgress = false;
+	        		});
+        		}
         	}
         },
         '3': {
-        	action: function() {
-        		// console.log('test9');
+        	// If there are 3 allies below 70% Hit Points, Heal All
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var aliveCount = '',
+        			validTargetCount = '';
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+        				aliveCount++;
+        			}
+        			if (target.attributes.hitpoints < target.attributes.hitpointsMax * 0.7) {
+        				validTargetCount++;
+        			}
+        		});
+        		if (aliveCount === 3 && validTargetCount === 3) {
+	        		charactersArray.forEach(function(target) {
+	        			if (target.alive) {
+							target.attributes.hitpoints += thisCharacter.attributes.attack;
+							if (target.attributes.hitpoints > target.attributes.hitpointsMax) {
+								target.attributes.hitpoints = target.attributes.hitpointsMax;
+							}
+							thisCharacter.animations.play(animationKey, 23, false);
+							game.effects.heal(target);
+	        			}
+	        			thisCharacter.actionInProgress = false;
+	        		});
+        		}
         	}
         },
         '4': {
-        	action: function() {
-        		// console.log('test9');
+        	// Cast Heal on the allie with the lowest Hit Points
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
+        		});
+        		var smallest = Math.min.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === smallest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints += thisCharacter.attributes.attack;
+						if (target.attributes.hitpoints > target.attributes.hitpointsMax) {
+							target.attributes.hitpoints = target.attributes.hitpointsMax;
+						}
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.heal(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         },
         '5': {
