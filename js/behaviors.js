@@ -26,11 +26,11 @@ game.Behaviors = {
         		}
         		var tempArray = [];
         		charactersArray.forEach(function(target) {
-					tempArray.push(target.attributes.hitpoints);
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
         		});
-        		console.log(tempArray);
         		var smallest = Math.min.apply(Math, tempArray);
-        		console.log(smallest);
         		charactersArray.forEach(function(target) {
 					if (target.attributes.hitpoints === smallest && thisCharacter.actionInProgress) {
 						target.attributes.hitpoints -= thisCharacter.attributes.attack;
@@ -55,7 +55,9 @@ game.Behaviors = {
         		}
         		var tempArray = [];
         		charactersArray.forEach(function(target) {
-					tempArray.push(target.attributes.hitpoints);
+        			if (target.alive) {
+						tempArray.push(target.attributes.hitpoints);
+        			}
         		});
         		var largest = Math.max.apply(Math, tempArray);
         		charactersArray.forEach(function(target) {
@@ -69,25 +71,65 @@ game.Behaviors = {
         	}
         },
         '3': {
-        	action: function() {
-        		// console.log('test1');
+        	// If an ally has less then 30% Hit Points, protect that allie
+        	action: function(thisCharacter) {
+        		
+        	}
+        },
+        '4': {
+        	// If an ally has less then 30% Hit Points, protect that allie
+        	action: function(thisCharacter) {
+        		
+        	}
+        },
+        '5': {
+        	// If an ally has less then 30% Hit Points, protect that allie
+        	action: function(thisCharacter) {
+        		
         	}
         }
     },
     'Wizard': {
         '1': {
-        	action: function() {
-        		// console.log('test2');
+        	// If there are 3 enemies cast Fire All
+        	action: function(thisCharacter) {
+        		console.log('If there are 3 enemies cast Fire All');
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var aliveCount = '';
+        		charactersArray.forEach(function(target) {
+        			if (target.alive) {
+        				aliveCount++;
+        			}
+        		});
+        		if (aliveCount === 3) {
+					charactersArray.forEach(function(target) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.3;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.fire(target);
+						thisCharacter.actionInProgress = false;
+					});
+					console.log('there were 3 enemies so I cast Fire All');
+        		} else {
+        			console.log('there were not 3 enemies so I did not cast Fire All');
+        		}
         	}
         },
         '2': {
         	action: function() {
-        		// console.log('wizard action 2');
+        		console.log('wizard action 2');
         	}
         },
         '3': {
         	action: function() {
-        		// console.log('wizard action 3');
+        		console.log('wizard action 3');
         	}
         },
         '4': {
@@ -103,12 +145,19 @@ game.Behaviors = {
         			animationKey = 'Attack Left';
         		}
         		charactersArray.forEach(function(target) {
-        			target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.3;
-        			thisCharacter.animations.play(animationKey, 23, false);
-        			game.effects.fire(target);
-        			thisCharacter.actionInProgress = false;
+        			if (target.alive) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.3;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.fire(target);
+						thisCharacter.actionInProgress = false;
+        			}
         		});
-
+        	}
+        },
+        '5': {
+        	// If an ally has less then 30% Hit Points, protect that allie
+        	action: function(thisCharacter) {
+        		
         	}
         }
     },
@@ -131,7 +180,7 @@ game.Behaviors = {
         			animationKey = 'Attack Left';
         		}
         		charactersArray.forEach(function(target) {
-        			if (target.key === 'Priest') {
+        			if (target.key === 'Priest' && target.alive) {
         				target.attributes.hitpoints -= thisCharacter.attributes.attack;
 						thisCharacter.animations.play(animationKey, 23, false);
 						game.effects.slash(target);
@@ -143,6 +192,18 @@ game.Behaviors = {
         '3': {
         	action: function() {
         		// console.log('testy');
+        	}
+        },
+        '4': {
+        	// If an ally has less then 30% Hit Points, protect that allie
+        	action: function() {
+        		
+        	}
+        },
+        '5': {
+        	// If an ally has less then 30% Hit Points, protect that allie
+        	action: function() {
+        		
         	}
         }
     },
@@ -180,9 +241,11 @@ game.Behaviors = {
         			animationKey = 'Attack Left';
         		}
         		charactersArray.forEach(function(target) {
-        			target.attributes.hitpoints += thisCharacter.attributes.attack;
-        			thisCharacter.animations.play(animationKey, 23, false);
-        			game.effects.heal(target);
+        			if (target.alive) {
+						target.attributes.hitpoints += thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.heal(target);
+        			}
         			thisCharacter.actionInProgress = false;
         		});
         	}
