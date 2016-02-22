@@ -195,7 +195,7 @@ var battleState = {
             if (character.attributes.hitpoints <= 0) {
                 if (character.team === 'allie') {
                     game.alliesDefeated++;
-                } else if (character.team === 'enemies') {
+                } else if (character.team === 'enemy') {
                     game.enemiesDefeated++;
                 }
                 character.destroy();
