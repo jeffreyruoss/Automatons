@@ -53,8 +53,8 @@ var battleState = {
          */   
 
         game.characterOne = game.add.sprite(360, 220, game.selectedCharacterData['characterOne']['type']);
-        game.characterOne.frame = 1;
         game.characterOne.scale.setTo(0.8, 0.8);
+        game.characterOne.location = 1;
         game.characterOne.behaviors = game.selectedCharacterData['characterOne']['behaviors'];
         game.allCharactersGroup.add(game.characterOne);
         game.alliesCharactersArray.push(game.characterOne);
@@ -65,8 +65,8 @@ var battleState = {
          */
 
         game.characterTwo = game.add.sprite(330, 330, game.selectedCharacterData['characterTwo']['type']);
-        game.characterTwo.frame = 1;
         game.characterTwo.scale.setTo(0.9, 0.9);
+        game.characterTwo.location = 2;
         game.characterTwo.behaviors = game.selectedCharacterData['characterTwo']['behaviors'];
         game.allCharactersGroup.add(game.characterTwo);
         game.alliesCharactersArray.push(game.characterTwo);
@@ -77,7 +77,7 @@ var battleState = {
          */   
 
         game.characterThree = game.add.sprite(300, 460, game.selectedCharacterData['characterThree']['type']);
-        game.characterThree.frame = 1;
+        game.characterThree.location = 3;
         game.characterThree.behaviors = game.selectedCharacterData['characterThree']['behaviors'];
         game.allCharactersGroup.add(game.characterThree);
         game.alliesCharactersArray.push(game.characterThree);
@@ -88,8 +88,8 @@ var battleState = {
          */   
 
         game.enemyOne = game.add.sprite(819, 220, game.enemyCharacterData['characterOne']['type']);
-        game.enemyOne.frame = 0;
         game.enemyOne.scale.setTo(0.8, 0.8);
+        game.enemyOne.location = 4;
         game.enemyOne.behaviors = game.enemyCharacterData['characterOne']['behaviors'];
         game.allCharactersGroup.add(game.enemyOne);
         game.enemiesCharactersArray.push(game.enemyOne);
@@ -100,8 +100,8 @@ var battleState = {
          */   
 
         game.enemyTwo = game.add.sprite(841, 330, game.enemyCharacterData['characterTwo']['type']);
-        game.enemyTwo.frame = 0;
         game.enemyTwo.scale.setTo(0.9, 0.9);
+        game.enemyTwo.location = 5;
         game.enemyTwo.behaviors = game.enemyCharacterData['characterTwo']['behaviors'];
         game.allCharactersGroup.add(game.enemyTwo);
         game.enemiesCharactersArray.push(game.enemyTwo);
@@ -112,7 +112,7 @@ var battleState = {
          */   
 
         game.enemyThree = game.add.sprite(876, 460, game.enemyCharacterData['characterThree']['type']);
-        game.enemyThree.frame = 0;
+        game.enemyThree.location = 6;
         game.enemyThree.behaviors = game.enemyCharacterData['characterThree']['behaviors'];
         game.allCharactersGroup.add(game.enemyThree);
         game.enemiesCharactersArray.push(game.enemyThree);
@@ -156,6 +156,7 @@ var battleState = {
          game.alliesCharactersArray.forEach(function(allie) {
             allie.frame = 1;
             allie.animations.add('Attack Right', [4, 5, 1]);
+            allie.team = 'allie';
          }); 
 
 
@@ -166,6 +167,7 @@ var battleState = {
          game.enemiesCharactersArray.forEach(function(enemy) {
             enemy.frame = 0;
             enemy.animations.add('Attack Left', [2, 3, 0]);
+            enemy.team = 'enemy';
          }); 
 
 
@@ -177,7 +179,7 @@ var battleState = {
             character.actionCounter += character.attributes.speed;
             if (character.actionCounter >= 20000) {
                 character.actionCounter = 0;
-                // game.doBehavior(character);
+                game.doBehavior(character);
             }
         });
         
