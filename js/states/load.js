@@ -37,6 +37,7 @@ var loadState = {
         game.load.spritesheet('Wizard', 'assets/img/battle/wizard.png', 254, 132, 6);
         game.load.spritesheet('Rogue', 'assets/img/battle/rogue.png', 254, 132, 6);
         game.load.spritesheet('Priest', 'assets/img/battle/priest.png', 254, 132, 6);
+        game.load.spritesheet('Slash', 'assets/img/battle/slash.png', 60, 82, 5);
 
 
         //Load your sounds, efx, music...

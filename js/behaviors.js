@@ -13,6 +13,7 @@ game.doBehavior = function(character) {
 game.Behaviors = {
     'Knight': {
         '1': {
+        	// "Attack the enemy with the lowest HP"
         	action: function(character) {
         		var tempArray = [];
         		game.enemiesCharactersArray.forEach(function(enemy) {
@@ -22,6 +23,8 @@ game.Behaviors = {
         		game.enemiesCharactersArray.forEach(function(enemy) {
 					if (enemy.attributes.hitpoints === largest) {
 						enemy.attributes.hitpoints -= character.attributes.attack;
+						character.animations.play("Attack Right", 23, false);
+						game.effects.slash(enemy);
 					}
         		});
         		character.actionInProgress = false;

@@ -52,7 +52,9 @@ var battleState = {
          * Create first allie
          */   
 
-        game.characterOne = game.add.sprite(260, 170, game.selectedCharacterData['characterOne']['type']);
+        game.characterOne = game.add.sprite(360, 220, game.selectedCharacterData['characterOne']['type']);
+        game.characterOne.anchor.x = 0.5;
+        game.characterOne.anchor.y = 0.5;
         game.characterOne.frame = 1;
         game.characterOne.animations.add('Attack Right', [4, 5, 1]);
         game.characterOne.scale.setTo(0.8, 0.8);
@@ -65,10 +67,12 @@ var battleState = {
          * Create second allie
          */
 
-        game.characterTwo = game.add.sprite(230, 280, game.selectedCharacterData['characterTwo']['type']);
+        game.characterTwo = game.add.sprite(330, 330, game.selectedCharacterData['characterTwo']['type']);
+        game.characterTwo.anchor.x = 0.5;
+        game.characterTwo.anchor.y = 0.5;
         game.characterTwo.frame = 1;
         game.characterTwo.animations.add('Attack Right', [4, 5, 1]);
-        game.characterTwo.scale.setTo(0.8, 0.8);
+        game.characterTwo.scale.setTo(0.9, 0.9);
         game.characterTwo.behaviors = game.selectedCharacterData['characterTwo']['behaviors'];
         game.allCharactersGroup.add(game.characterTwo);
         game.alliesCharactersArray.push(game.characterTwo);
@@ -78,7 +82,9 @@ var battleState = {
          * Create third allie
          */   
 
-        game.characterThree = game.add.sprite(200, 410, game.selectedCharacterData['characterThree']['type']);
+        game.characterThree = game.add.sprite(300, 460, game.selectedCharacterData['characterThree']['type']);
+        game.characterThree.anchor.x = 0.5;
+        game.characterThree.anchor.y = 0.5;
         game.characterThree.frame = 1;
         game.characterThree.animations.add('Attack Right', [4, 5, 1]);
         game.characterThree.behaviors = game.selectedCharacterData['characterThree']['behaviors'];
@@ -90,7 +96,9 @@ var battleState = {
          * Create first enemy
          */   
 
-        game.enemyOne = game.add.sprite(719, 170, game.enemyCharacterData['characterOne']['type']);
+        game.enemyOne = game.add.sprite(819, 220, game.enemyCharacterData['characterOne']['type']);
+        game.enemyOne.anchor.x = 0.5;
+        game.enemyOne.anchor.y = 0.5;
         game.enemyOne.frame = 0;
         game.enemyOne.animations.add('Attack Left', [2, 3, 0]);
         game.enemyOne.scale.setTo(0.8, 0.8);
@@ -103,7 +111,9 @@ var battleState = {
          * Create second enemy
          */   
 
-        game.enemyTwo = game.add.sprite(731, 280, game.enemyCharacterData['characterTwo']['type']);
+        game.enemyTwo = game.add.sprite(841, 330, game.enemyCharacterData['characterTwo']['type']);
+        game.enemyTwo.anchor.x = 0.5;
+        game.enemyTwo.anchor.y = 0.5;
         game.enemyTwo.frame = 0;
         game.enemyTwo.animations.add('Attack Left', [2, 3, 0]);
         game.enemyTwo.scale.setTo(0.9, 0.9);
@@ -116,7 +126,9 @@ var battleState = {
          * Create third enemy
          */   
 
-        game.enemyThree = game.add.sprite(736, 410, game.enemyCharacterData['characterThree']['type']);
+        game.enemyThree = game.add.sprite(876, 460, game.enemyCharacterData['characterThree']['type']);
+        game.enemyThree.anchor.x = 0.5;
+        game.enemyThree.anchor.y = 0.5;
         game.enemyThree.frame = 0;
         game.enemyThree.animations.add('Attack Left', [2, 3, 0]);
         game.enemyThree.behaviors = game.enemyCharacterData['characterThree']['behaviors'];
@@ -160,7 +172,7 @@ var battleState = {
             character.actionCounter += character.attributes.speed;
             if (character.actionCounter >= 20000) {
                 character.actionCounter = 0;
-                game.doBehavior(character);
+                // game.doBehavior(character);
             }
         });
         
