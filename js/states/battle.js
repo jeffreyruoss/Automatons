@@ -9,10 +9,10 @@ var battleState = {
         game.selectedCharacterData = {
             'characterOne': {
                 'type': 'Knight',
-                'behaviors': [1, 2, 3]
+                'behaviors': [2, 1, 3]
             },
             'characterTwo': {
-                'type': 'Rogue',
+                'type': 'Priest',
                 'behaviors': [1, 2, 3]
             },
             'characterThree': {
@@ -28,15 +28,15 @@ var battleState = {
         game.enemyCharacterData = {
             'characterOne': {
                 'type': 'Wizard',
-                'behaviors': [2, 1]
+                'behaviors': [2, 1, 3]
             },
             'characterTwo': {
-                'type': 'Knight',
-                'behaviors': [3, 2]
+                'type': 'Priest',
+                'behaviors': [3, 2, 1]
             },
             'characterThree': {
                 'type': 'Rogue',
-                'behaviors': [1, 2]
+                'behaviors': [1, 2, 3]
             },
         };
 
@@ -56,18 +56,20 @@ var battleState = {
         game.characterOne.frame = 1;
         game.characterOne.animations.add('Attack Right', [4, 5, 1]);
         game.characterOne.scale.setTo(0.8, 0.8);
+        game.characterOne.behaviors = game.selectedCharacterData['characterOne']['behaviors'];
         game.allCharactersGroup.add(game.characterOne);
         game.alliesCharactersArray.push(game.characterOne);
 
 
         /**
          * Create second allie
-         */   
+         */
 
         game.characterTwo = game.add.sprite(230, 280, game.selectedCharacterData['characterTwo']['type']);
         game.characterTwo.frame = 1;
         game.characterTwo.animations.add('Attack Right', [4, 5, 1]);
-        game.characterTwo.scale.setTo(0.9, 0.9);
+        game.characterTwo.scale.setTo(0.8, 0.8);
+        game.characterTwo.behaviors = game.selectedCharacterData['characterTwo']['behaviors'];
         game.allCharactersGroup.add(game.characterTwo);
         game.alliesCharactersArray.push(game.characterTwo);
 
@@ -79,7 +81,7 @@ var battleState = {
         game.characterThree = game.add.sprite(200, 410, game.selectedCharacterData['characterThree']['type']);
         game.characterThree.frame = 1;
         game.characterThree.animations.add('Attack Right', [4, 5, 1]);
-
+        game.characterThree.behaviors = game.selectedCharacterData['characterThree']['behaviors'];
         game.allCharactersGroup.add(game.characterThree);
         game.alliesCharactersArray.push(game.characterThree);
 
@@ -92,6 +94,7 @@ var battleState = {
         game.enemyOne.frame = 0;
         game.enemyOne.animations.add('Attack Left', [2, 3, 0]);
         game.enemyOne.scale.setTo(0.8, 0.8);
+        game.enemyOne.behaviors = game.enemyCharacterData['characterOne']['behaviors'];
         game.allCharactersGroup.add(game.enemyOne);
         game.enemiesCharactersArray.push(game.enemyOne);
 
@@ -104,6 +107,7 @@ var battleState = {
         game.enemyTwo.frame = 0;
         game.enemyTwo.animations.add('Attack Left', [2, 3, 0]);
         game.enemyTwo.scale.setTo(0.9, 0.9);
+        game.enemyTwo.behaviors = game.enemyCharacterData['characterTwo']['behaviors'];
         game.allCharactersGroup.add(game.enemyTwo);
         game.enemiesCharactersArray.push(game.enemyTwo);
 
@@ -115,6 +119,7 @@ var battleState = {
         game.enemyThree = game.add.sprite(736, 410, game.enemyCharacterData['characterThree']['type']);
         game.enemyThree.frame = 0;
         game.enemyThree.animations.add('Attack Left', [2, 3, 0]);
+        game.enemyThree.behaviors = game.enemyCharacterData['characterThree']['behaviors'];
         game.allCharactersGroup.add(game.enemyThree);
         game.enemiesCharactersArray.push(game.enemyThree);
 
@@ -144,8 +149,8 @@ var battleState = {
                 character.attributes.attack = 7;
             }
             character.attributes.speed += Math.floor(Math.random() * 20);
+            character.actionInProgress = false;
          });
-
 
     },
     
@@ -155,6 +160,7 @@ var battleState = {
             character.actionCounter += character.attributes.speed;
             if (character.actionCounter >= 20000) {
                 character.actionCounter = 0;
+                game.doBehavior(character);
             }
         });
         
