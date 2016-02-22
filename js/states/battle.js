@@ -133,19 +133,19 @@ var battleState = {
             character.anchor.y = 0.5;
             character.attributes = {};
             if (character['key'] === 'Knight') {
-                character.attributes.hitpoints = 100;
+                character.attributes.hitpoints = 130;
                 character.attributes.speed = 50;
                 character.attributes.attack = 20;
             } else if (character['key'] === 'Wizard') {
-                character.attributes.hitpoints = 50;
+                character.attributes.hitpoints = 80;
                 character.attributes.speed = 60;
                 character.attributes.attack = 30;               
             } else if (character['key'] === 'Rogue') {
-                character.attributes.hitpoints = 80;
+                character.attributes.hitpoints = 110;
                 character.attributes.speed = 85;
-                character.attributes.attack = 15;               
+                character.attributes.attack = 15;
             } else if (character['key'] === 'Priest') {
-                character.attributes.hitpoints = 40;
+                character.attributes.hitpoints = 70;
                 character.attributes.speed = 65;
                 character.attributes.attack = 7;
             }
