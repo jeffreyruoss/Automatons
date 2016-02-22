@@ -1,7 +1,9 @@
 game.effects = {}
 
-game.effects.slash = function(character) {
-	var slash = game.add.sprite(character.x, character.y, 'Slash');
+game.effects.slash = function(target) {
+	var slash = game.add.sprite(target.x, target.y, 'Slash');
+	slash.anchor.x = 0.5;
+	slash.anchor.y = 0.5;
 	slash.animations.add('Slashing', [0, 1, 2, 3, 4]);
 	slash.animations.play('Slashing', 30, false);
 	slash.animations.currentAnim.onComplete.add(function() {
