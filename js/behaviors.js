@@ -79,7 +79,7 @@ game.Behaviors = {
         			animationKey = 'Attack Left';
         		}
         		charactersArray.forEach(function(target) {
-        			target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.4;
+        			target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.3;
         			thisCharacter.animations.play(animationKey, 23, false);
         			game.effects.fire(target);
         			thisCharacter.actionInProgress = false;
@@ -95,8 +95,25 @@ game.Behaviors = {
         	}
         },
         '2': {
-        	action: function() {
-        		// console.log('test4');
+        	// If there is Priest, attack that Priest
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		charactersArray.forEach(function(target) {
+        			if (target.key === 'Priest') {
+        				target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.slash(target);
+        				thisCharacter.actionInProgress = false;
+        			}
+        		});
         	}
         },
         '3': {
@@ -119,6 +136,31 @@ game.Behaviors = {
         '3': {
         	action: function() {
         		// console.log('test9');
+        	}
+        },
+        '4': {
+        	action: function() {
+        		// console.log('test9');
+        	}
+        },
+        '5': {
+        	// Cast Heal All
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		charactersArray.forEach(function(target) {
+        			target.attributes.hitpoints += thisCharacter.attributes.attack;
+        			thisCharacter.animations.play(animationKey, 23, false);
+        			game.effects.heal(target);
+        			thisCharacter.actionInProgress = false;
+        		});
         	}
         }
     }
