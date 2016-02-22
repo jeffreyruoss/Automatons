@@ -192,7 +192,7 @@ var menuState = {
         behaviorPopup.anchor.x = 0.5;
         behaviorPopup.alpha = 0;
         
-        var behaviorPopupClose = game.add.button(1075, 65, 'Close X', null, this, 1, 0, 0);
+        var behaviorPopupClose = game.add.button(1100, 40, 'Close X', null, this, 1, 0, 0);
         behaviorPopupClose.alpha = 0;
 
         game.behaviorsJSON = game.cache.getJSON('Behaviors');
