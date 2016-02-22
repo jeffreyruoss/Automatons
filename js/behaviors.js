@@ -27,10 +27,12 @@ game.Behaviors = {
         		var tempArray = [];
         		charactersArray.forEach(function(target) {
 					tempArray.push(target.attributes.hitpoints);
-        		});        			
-        		var largest = Math.max.apply(Math, tempArray);
+        		});
+        		console.log(tempArray);
+        		var smallest = Math.min.apply(Math, tempArray);
+        		console.log(smallest);
         		charactersArray.forEach(function(target) {
-					if (target.attributes.hitpoints === largest && thisCharacter.actionInProgress) {
+					if (target.attributes.hitpoints === smallest && thisCharacter.actionInProgress) {
 						target.attributes.hitpoints -= thisCharacter.attributes.attack;
 						thisCharacter.animations.play(animationKey, 23, false);
 						game.effects.slash(target);
@@ -40,8 +42,30 @@ game.Behaviors = {
         	}
         },
         '2': {
-        	action: function() {
-        		// console.log('test1');
+        	// Attack the enemy with the highest Hit Points
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		var tempArray = [];
+        		charactersArray.forEach(function(target) {
+					tempArray.push(target.attributes.hitpoints);
+        		});
+        		var largest = Math.max.apply(Math, tempArray);
+        		charactersArray.forEach(function(target) {
+					if (target.attributes.hitpoints === largest && thisCharacter.actionInProgress) {
+						target.attributes.hitpoints -= thisCharacter.attributes.attack;
+						thisCharacter.animations.play(animationKey, 23, false);
+						game.effects.slash(target);
+						thisCharacter.actionInProgress = false;
+					}
+        		});
         	}
         },
         '3': {
