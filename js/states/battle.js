@@ -41,6 +41,11 @@ var battleState = {
         };
 
 
+        game.alliesDefeated = 0;
+        game.enemiesDefeated = 0;
+        game.battleOver = false;
+
+
         game.add.tileSprite(0, 0, 1200, 600, 'Battle Background');
 
         game.allCharactersGroup = game.add.group();
@@ -176,16 +181,38 @@ var battleState = {
     update: function() {
 
         game.allCharactersGroup.forEach(function(character) {
+
+            // Check if a character is ready and if so, run a behavior
             character.actionCounter += character.attributes.speed;
             if (character.actionCounter >= 20000) {
                 character.actionCounter = 0;
-                game.doBehavior(character);
+                if (!game.battleOver) {
+                    game.doBehavior(character);
+                }
             }
+
+            // Check for dead characters and if so, destroy them and add to defeated count
+            if (character.attributes.hitpoints <= 0) {
+                if (character.team === 'allie') {
+                    game.alliesDefeated++;
+                } else if (character.team === 'enemies') {
+                    game.enemiesDefeated++;
+                }
+                character.destroy();
+            }
+
+            // Check if all allies or enemies are defeated and if so, end the game
+            if (game.alliesDefeated >= 3) {
+                game.battleOver = true;
+                console.log('lose');
+                // game.state.start('results');
+            } else if (game.enemiesDefeated >=3) {
+                game.battleOver = true;
+                console.log('win');
+                // game.state.start('results');
+            }
+
         });
-        
-        // if (isGameOver === true) {
-        //     game.state.start('results');
-        // }
         
     }
 
