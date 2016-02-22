@@ -2,15 +2,15 @@
 	{"Knight": [
 		{"behavior": {
 			"id": 1,
-			"menuText": "Attack the enemy with the lowest HP"
+			"menuText": "Attack the enemy with the lowest Hit Points"
 		}},
 		{"behavior": {
 			"id": 2,
-			"menuText": "Attack the enemy with the highest HP"
+			"menuText": "Attack the enemy with the highest Hit Points"
 		}},
 		{"behavior": {
 			"id": 3,
-			"menuText": "If an ally has less then 30% HP, protect that allie"
+			"menuText": "If an ally has less then 30% Hit Points, protect that allie"
 		}}
 	]},
 	{"Wizard": [
@@ -24,13 +24,17 @@
 		}},
 		{"behavior": {
 			"id": 3,
-			"menuText": "Cast Fire an the enemy with the lowest HP"
+			"menuText": "Cast Fire an the enemy with the lowest Hit Points"
+		}},
+		{"behavior": {
+			"id": 4,
+			"menuText": "Cast Fire All"
 		}}
 	]},
 	{"Rogue": [
 		{"behavior": {
 			"id": 1,
-			"menuText": "Attack the enemy with the lowest HP"
+			"menuText": "Attack the enemy with the lowest Hit Points"
 		}},
 		{"behavior": {
 			"id": 2,
@@ -44,19 +48,23 @@
 	{"Priest": [
 		{"behavior": {
 			"id": 1,
-			"menuText": "Attack the enemy with the lowest HP"
+			"menuText": "Attack the enemy with the lowest Hit Points"
 		}},
 		{"behavior": {
 			"id": 2,
-			"menuText": "If there are 3 allies below 50% HP, Heal All"
+			"menuText": "If there are 3 allies below 50% Hit Points, Heal All"
 		}},
 		{"behavior": {
 			"id": 3,
-			"menuText": "If there are 3 allies below 70% HP, Heal All"
+			"menuText": "If there are 3 allies below 70% Hit Points, Heal All"
 		}},
 		{"behavior": {
 			"id": 4,
-			"menuText": "Cast Heal on the allie with the lowest HP"
+			"menuText": "Cast Heal on the allie with the lowest Hit Points"
+		}},
+		{"behavior": {
+			"id": 5,
+			"menuText": "Cast Heal All"
 		}}
 	]}
 ]
