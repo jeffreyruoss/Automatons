@@ -65,6 +65,27 @@ game.Behaviors = {
         	action: function() {
         		// console.log('wizard action 3');
         	}
+        },
+        '4': {
+        	// Cast Fire All
+        	action: function(thisCharacter) {
+        		var charactersArray = '',
+        			animationKey = '';
+        		if (thisCharacter.team === 'allie') {
+        			charactersArray = game.enemiesCharactersArray;
+        			animationKey = 'Attack Right';
+        		} else if (thisCharacter.team === 'enemy') {
+        			charactersArray = game.alliesCharactersArray;
+        			animationKey = 'Attack Left';
+        		}
+        		charactersArray.forEach(function(target) {
+        			target.attributes.hitpoints -= thisCharacter.attributes.attack * 0.4;
+        			thisCharacter.animations.play(animationKey, 23, false);
+        			game.effects.fire(target);
+        			thisCharacter.actionInProgress = false;
+        		});
+
+        	}
         }
     },
     'Rogue': {
