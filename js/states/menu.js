@@ -4,6 +4,10 @@ var menuState = {
 
     create: function() {
         
+        /**
+         * Container for selected character data from the menu state
+         */
+
         game.selectedCharacterData = {
             'characterOne': {
                 'type': '',
@@ -21,7 +25,7 @@ var menuState = {
         
             
         /**
-         * Background Panel containers
+         * Background panel containers
          */
         
         game.add.sprite(30, 32, 'Panel');
@@ -30,22 +34,19 @@ var menuState = {
         
         
         /**
-         * Choose your characters text headings
+         * "Choose Your Character" text headings
          */
         
         var chooseYourCharacterTextStyles = {font: '18px Courier', fill: '#fff'},
             choseYourCharacterTextY = 47;
             
-        game.add.text(200, choseYourCharacterTextY, 'CHOOSE YOUR 1ST CHARACTER', chooseYourCharacterTextStyles)
-            .anchor.x = 0.5;
-        game.add.text(600, choseYourCharacterTextY, 'CHOOSE YOUR 2ND CHARACTER', chooseYourCharacterTextStyles)
-            .anchor.x = 0.5;
-        game.add.text(1000, choseYourCharacterTextY, 'CHOOSE YOUR 3RD CHARACTER', chooseYourCharacterTextStyles)
-            .anchor.x = 0.5;
+        game.add.text(200, choseYourCharacterTextY, 'CHOOSE YOUR 1ST CHARACTER', chooseYourCharacterTextStyles).anchor.x = 0.5;
+        game.add.text(600, choseYourCharacterTextY, 'CHOOSE YOUR 2ND CHARACTER', chooseYourCharacterTextStyles).anchor.x = 0.5;
+        game.add.text(1000, choseYourCharacterTextY, 'CHOOSE YOUR 3RD CHARACTER', chooseYourCharacterTextStyles).anchor.x = 0.5;
 
 
         /**
-         * Character types avatars
+         * Character types avatars and labels
          */
         
         game.avatarsGroup = game.add.group();
@@ -63,7 +64,7 @@ var menuState = {
         
         for (var i = 1; i <= 12; i++) {
             // lay out the avatar frames
-            currentAvatarFrame = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', null, this, 1, 0, 0);
+            currentAvatarFrame = game.make.button(avatarsCurrentX, avatarsY, 'Avatar Frame', avatarOnClick, this, 1, 0, 0);
             game.avatarsGroup.add(currentAvatarFrame);
             
             currentAvatarFrame.panel = currentPanel;
@@ -73,21 +74,18 @@ var menuState = {
                 characterTypeLabelFontStyles = {font: '16px Courier', fill: '#fff'};
             if (i === 1 || i === 5 || i === 9) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'KIGHT', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
                 currentAvatarFrame.characterType = 'Knight';
             } else if (i === 2 || i === 6 | i === 10) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'WIZARD', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
                 currentAvatarFrame.characterType = 'Wizard';
             } else if (i === 3 || i === 7 | i === 11) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'ROGUE', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
                 currentAvatarFrame.characterType = 'Rogue';
             } else if (i === 4 || i === 8 | i === 12) {
                 currentCharacterTypeLabel = game.add.text(characterTypeLabelX, characterTypeLabelY, 'PRIEST', characterTypeLabelFontStyles);
-                currentCharacterTypeLabel.anchor.x = 0.5;
                 currentAvatarFrame.characterType = 'Priest';
             }
+            currentCharacterTypeLabel.anchor.x = 0.5;
             currentAvatarKey = currentAvatarFrame.characterType + ' Avatar';
             currentAvatar = game.add.sprite(avatarsCurrentX, avatarsY, currentAvatarKey);
             game.avatarsGroup.add(currentAvatar);
@@ -107,31 +105,19 @@ var menuState = {
          * Character types avatars functionality
          */
         
-        game.avatarsGroup.forEach( function(avatar) { 
-            avatar.events.onInputDown.add(avatarOnClick, this);
-        }, this);
+        // game.avatarsGroup.forEach(function(avatar) { 
+        //     avatar.events.onInputDown.add(avatarOnClick, this);
+        // }, this);
         
         function avatarOnClick (sprite, pointer) {
             if (sprite.panel === 'characterOne') {
-                game.avatarsGroup.forEach(function(avatar) {
-                    if (avatar.panel === 'characterOne') {
-                        avatar.setFrames(1, 0, 0);
-                    }
-                });
+                sprite.setFrames(1, 0, 0);
                 game.selectedCharacterData.characterOne.type = sprite.characterType;
             } else if (sprite.panel === 'characterTwo') {
-                game.avatarsGroup.forEach(function(avatar) {
-                    if (avatar.panel === 'characterTwo') {
-                        avatar.setFrames(1, 0, 0);
-                    }
-                });
+                sprite.setFrames(1, 0, 0);
                 game.selectedCharacterData.characterTwo.type = sprite.characterType;
             } else if (sprite.panel === 'characterThree') {
-                game.avatarsGroup.forEach(function(avatar) {
-                    if (avatar.panel === 'characterThree') {
-                        avatar.setFrames(1, 0, 0);
-                    }
-                });
+                sprite.setFrames(1, 0, 0);
                 game.selectedCharacterData.characterThree.type = sprite.characterType;
             }
             sprite.setFrames(2, 2, 0);
@@ -139,17 +125,12 @@ var menuState = {
         
         
         /**
-         * Choose behaviors text headings
+         * "Choose Behaviors" text headings
          */
          
-        var chooseYourCharactersTextFontStyles = {font: '18px Courier', fill: '#fff'};
-        
-        game.add.text(200, 167, 'CHOOSE BEHAVIORS', chooseYourCharactersTextFontStyles)
-            .anchor.x = 0.5;
-        game.add.text(600, 167, 'CHOOSE BEHAVIORS', chooseYourCharactersTextFontStyles)
-            .anchor.x = 0.5;
-        game.add.text(1000, 167, 'CHOOSE BEHAVIORS', chooseYourCharactersTextFontStyles)
-            .anchor.x = 0.5;
+        game.add.text(200, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'}).anchor.x = 0.5;
+        game.add.text(600, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'}).anchor.x = 0.5;
+        game.add.text(1000, 167, 'CHOOSE BEHAVIORS', {font: '18px Courier', fill: '#fff'}).anchor.x = 0.5;
         
         
         /**
@@ -168,7 +149,7 @@ var menuState = {
             currentBehaviorSlot = '';
         
         for (var i = 1; i <= 15; i++) {
-            currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', null, this, 1, 0, 0);
+            currentBehaviorSlot = game.make.button(behaviorSlotsCurrentX, behaviorSlotsCurrentY, 'Behavior Frame', behaviorSlotOnClick, this, 1, 0, 0);
             currentBehaviorSlot.panel = currentPanel;
             game.behaviorSlotsGroup.add(currentBehaviorSlot);
             behaviorSlotsCurrentY += behaviorSlotHeight + behaviorSlotsMarginBottom;
@@ -192,14 +173,10 @@ var menuState = {
         behaviorPopup.anchor.x = 0.5;
         behaviorPopup.alpha = 0;
         
-        var behaviorPopupClose = game.add.button(1100, 40, 'Close X', null, this, 1, 0, 0);
+        var behaviorPopupClose = game.add.button(1100, 40, 'Close X', behaviorPopupCloseOnClick, this, 1, 0, 0);
         behaviorPopupClose.alpha = 0;
 
         game.behaviorsJSON = game.cache.getJSON('Behaviors');
-        
-        game.behaviorSlotsGroup.forEach(function(behaviorSlot) { 
-            behaviorSlot.events.onInputDown.add(behaviorSlotOnClick, this);
-        }, this);
         
         function behaviorSlotOnClick(sprite, pointer) {
             game.activeBehaviorSlot = sprite;
@@ -220,8 +197,6 @@ var menuState = {
             game.world.bringToTop(behaviorPopupClose);
             listBehaviors(sprite.panel, game.selectedCharacterData[sprite.panel]['type']);
         }
-        
-        behaviorPopupClose.events.onInputDown.add(behaviorPopupCloseOnClick, this);
         
         function behaviorPopupCloseOnClick(sprite, pointer) {
             behaviorPopup.alpha = 0;
@@ -255,8 +230,7 @@ var menuState = {
                 game.behaviorsJSON.forEach(function(object) {
                     if (object[characterType]) {
                         object[characterType].forEach(function(object) {
-                            currentBehaviorListItemButton = game.add.button(88, currentBehaviorsListY, 'Behaviors List Item Button', null, this, 1, 0, 0);
-                            currentBehaviorListItemButton.events.onInputDown.add(behaviorListItemOnClick, this);
+                            currentBehaviorListItemButton = game.add.button(88, currentBehaviorsListY, 'Behaviors List Item Button', behaviorListItemOnClick, this, 1, 0, 0);
                             currentBehaviorListItemButton.panel = panel;
                             currentBehaviorListItemButton.behaviorId = object['behavior']['id'];
                             currentBehaviorListItemButton.behaviorText = object['behavior']['menuText'];
@@ -289,8 +263,7 @@ var menuState = {
          * Start Button
          */   
         
-        game.add.button(game.world.centerX, 525, 'Start Button', startBattle, this, 1, 0, 0)
-            .anchor.x = 0.5;
+        game.add.button(game.world.centerX, 525, 'Start Button', startBattle, this, 1, 0, 0).anchor.x = 0.5;
         
         function startBattle() {
             game.state.start('battle');
