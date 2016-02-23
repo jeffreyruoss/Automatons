@@ -14,15 +14,6 @@
 var w = 1200,
     h = 600;
 
-console.count('test');
-console.count('test');
-console.count('test');
-console.count('test');
-console.count('test');
-console.count('test');
-
-
-
 var game = new Phaser.Game(w, h, Phaser.AUTO, 'gameContainer');
 
 _.each({
