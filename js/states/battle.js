@@ -205,18 +205,16 @@ var battleState = {
                 character.destroy();
             }
 
-            // Check if all allies or enemies are defeated and if so, end the game
-            if (game.alliesDefeated >= 3) {
-                game.battleOver = true;
-                console.log('lose');
-                // game.state.start('results');
-            } else if (game.enemiesDefeated >=3) {
-                game.battleOver = true;
-                console.log('win');
-                // game.state.start('results');
-            }
-
         });
+
+        // Check if all allies or enemies are defeated and if so, end the game
+        if (game.alliesDefeated >= 3) {
+            game.battleOver = true;
+            // game.state.start('results');
+        } else if (game.enemiesDefeated >=3) {
+            game.battleOver = true;
+            // game.state.start('results');
+        }
         
     }
 
