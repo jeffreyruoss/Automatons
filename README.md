@@ -1,18 +1,12 @@
 # Automatons
+Canvas/JS game in the works.
+Like a traditional retro RPG except characters are configured with behaviors before battle and let loose.
 
-# Resources used
-- Phaser-Boilerplate
 
-## Phaser-Boilerplate
-Game Development Tool to create Html5 games using [Phaser](http://phaser.io/) Framework. Useful tool for those new to the world of Phaser. Speed up your work with a simple download!
-
-"An easy to install set of skeleton classes to speed-up development start time." - Richard Darvey [@photonstorm](https://twitter.com/photonstorm)
-
-### Features: 
-- Phaser 2.4.4. (minified).
-- Develop in states: StateManager, Boot, Load & Menu.
-- Load Assets: Dall's Logo.
-
-#### Plugins Installed:
-- [Phaser-Debug](https://github.com/englercj/phaser-debug) v1.1.6
-- [Phaser-Inspector](https://github.com/netcell/phaser-inspector) v0.1
+## Resources used
+- Phaser [Phaser](http://phaser.io/)
+- Phaser-Boilerplate [Phaser-Boilerplate](https://github.com/DallOner/Phaser-Boilerplate)
+- Character art by [Final Boss Blues](http://finalbossblues.com)
+- Menu art by [Buch](http://opengameart.org/users/buch)
+- Battle scene background by [Ansimuz Games](http://ansimuz.com/site/)
+- Weapons by [WintersDesign](http://graphicriver.net/user/wintersdesign)
